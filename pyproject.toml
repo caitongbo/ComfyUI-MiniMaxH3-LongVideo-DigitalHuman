@@ -1,0 +1,20 @@
+[project]
+name = "comfyui-minimaxh3-longvideo-digitalhuman"
+version = "1.0.0"
+description = "Checkpoint-managed long-video digital-human workflows for MiniMax H3 in ComfyUI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman"
+Documentation = "https://github.com/caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman#readme"
+Repository = "https://github.com/caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman"
+Issues = "https://github.com/caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman/issues"
+
+[tool.comfy]
+PublisherId = "caitongbo"
+DisplayName = "MiniMax H3 Long Video Digital Human"
+Icon = ""
+web = "js"

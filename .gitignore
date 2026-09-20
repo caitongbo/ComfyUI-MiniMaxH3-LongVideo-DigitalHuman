@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*.bak
+.DS_Store
+h3_context/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+
+# Local ComfyUI artifacts and model weights must never enter the repository.
+input/
+output/
+temp/
+models/
+*.ckpt
+*.pt
+*.pth
+*.safetensors

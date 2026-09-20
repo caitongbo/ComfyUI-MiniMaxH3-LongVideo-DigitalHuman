@@ -1,0 +1,40 @@
+name: Bug report
+description: Report a reproducible workflow or node failure
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not post private media, model weights, API keys, or security vulnerabilities here.
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      options:
+        - label: I reproduced this with the bundled workflow on the current main branch.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true
+  - type: textarea
+    attributes:
+      label: Environment
+      description: ComfyUI commit, OS, Python/PyTorch, GPU/VRAM, and model filenames.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction steps
+      description: Include timeline mode, planned clip count, and the exact action used to start the run.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Relevant logs
+      description: Paste the complete traceback and nearby h3_digital_human lines.
+      render: text
+    validations:
+      required: true
