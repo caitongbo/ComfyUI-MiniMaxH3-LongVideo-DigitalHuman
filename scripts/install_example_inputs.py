@@ -9,8 +9,14 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = PROJECT_ROOT / "example_inputs" / "h3_digital_human"
-ASSETS = ("presenter_reference.png", "demo_narration.mp3")
+SOURCE_DIR = PROJECT_ROOT / "example_inputs"
+# Core media widgets can falsely mark files in input subdirectories as missing.
+# Install collision-resistant filenames directly under input/ so both the
+# frontend selector and backend loader resolve the saved workflow value.
+ASSETS = (
+    ("presenter_reference.png", "h3_digital_human_presenter_reference.png"),
+    ("demo_narration.mp3", "h3_digital_human_demo_narration.mp3"),
+)
 
 
 def _digest(path: Path) -> str:
@@ -36,12 +42,12 @@ def install(comfyui_root: Path, *, force: bool = False) -> list[Path]:
             (comfyui_root / "custom_nodes").is_dir()):
         raise ValueError(f"Not a ComfyUI root (main.py/custom_nodes missing): {comfyui_root}")
 
-    destination = comfyui_root / "input" / "h3_digital_human"
+    destination = comfyui_root / "input"
     destination.mkdir(parents=True, exist_ok=True)
     installed = []
-    for name in ASSETS:
-        source = SOURCE_DIR / name
-        target = destination / name
+    for source_name, target_name in ASSETS:
+        source = SOURCE_DIR / source_name
+        target = destination / target_name
         if not source.is_file():
             raise FileNotFoundError(f"Bundled example asset is missing: {source}")
         if target.exists() and _digest(target) != _digest(source) and not force:
@@ -70,6 +76,7 @@ def main() -> None:
         parser.error("cannot auto-detect ComfyUI; pass --comfyui-root /path/to/ComfyUI")
     for path in install(args.comfyui_root, force=args.force):
         print(path)
+    print("Refresh the ComfyUI browser page; restart ComfyUI first if the media nodes remain red.")
 
 
 if __name__ == "__main__":

@@ -5,12 +5,11 @@
 This repository is distributed under GPL-3.0-only. It contains modified code
 originating from:
 
-- `seitanism/ComfyUI-H3-Motion-Context-MultiRef`
-- `NikoDemon80/ComfyUI-H3-Motion-Context`
+- [seitanism/ComfyUI-H3-Motion-Context-MultiRef](https://github.com/seitanism/ComfyUI-H3-Motion-Context-MultiRef)
+- [NikoDemon80/ComfyUI-H3-Motion-Context](https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context)
 
-The original copyright and license notices are retained. Changes made for this
-digital-human distribution are documented in `MODIFICATIONS.md` and
-`CHANGELOG.md`.
+The original copyright and license notices are retained. Project-specific
+changes are summarized in `MODIFICATIONS.md`.
 
 MiniMax, ComfyUI, and VideoHelperSuite are names of their respective projects or
 rights holders. This repository is an independent community project and is not

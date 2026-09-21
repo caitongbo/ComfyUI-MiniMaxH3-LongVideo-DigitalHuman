@@ -17,7 +17,6 @@ from .checkpoint_manifest import (
 )
 from .h3_audio_vae_compat import MiniMaxH3AudioVAECompatibility
 from .h3_digital_human_audio_context import MiniMaxH3DigitalHumanAVContext
-from .h3_drift_control import MiniMaxH3DriftControlModel
 from .h3_streaming_vhs import MiniMaxH3StreamCheckpointDigitalHumanToVHS
 from .h3_timeline import calculate_audio_timeline
 
@@ -255,8 +254,6 @@ class MiniMaxH3AudioTimelinePlan:
     """Calculate a safe checkpoint timeline from decoded master audio."""
 
     MAX_CLIPS = 20
-    AUTO = "Auto from Audio"
-    MANUAL = "Manual"
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -274,11 +271,6 @@ class MiniMaxH3AudioTimelinePlan:
                 "clip_index": (
                     "INT",
                     {"default": 1, "min": 1, "max": cls.MAX_CLIPS, "step": 1},
-                ),
-                "clip_mode": ([cls.AUTO, cls.MANUAL], {"default": cls.AUTO}),
-                "manual_clips": (
-                    "INT",
-                    {"default": 4, "min": 1, "max": cls.MAX_CLIPS, "step": 1},
                 ),
             }
         }
@@ -303,8 +295,6 @@ class MiniMaxH3AudioTimelinePlan:
         raw_clip_frames=362,
         context_frames=39,
         clip_index=1,
-        clip_mode=AUTO,
-        manual_clips=4,
     ):
         waveform = master_audio.get("waveform") if isinstance(master_audio, dict) else None
         sample_rate = int(master_audio.get("sample_rate", 0)) if isinstance(master_audio, dict) else 0
@@ -319,11 +309,8 @@ class MiniMaxH3AudioTimelinePlan:
             sample_rate,
             raw_clip_frames,
             context_frames,
-            automatic=str(clip_mode) == self.AUTO,
-            manual_clips=manual_clips,
             max_clips=self.MAX_CLIPS,
         )
-        payload["clip_mode"] = str(clip_mode)
         count = payload["clip_count"]
         index = max(1, min(self.MAX_CLIPS, int(clip_index)))
         start_frame = (index - 1) * payload["advance_frames"]
@@ -357,7 +344,6 @@ NODE_CLASS_MAPPINGS = {
     "MiniMaxH3AudioVAECompatibility": MiniMaxH3AudioVAECompatibility,
     "MiniMaxH3CheckpointResume": MiniMaxH3CheckpointResume,
     "MiniMaxH3DigitalHumanAVContext": MiniMaxH3DigitalHumanAVContext,
-    "MiniMaxH3DriftControlModel": MiniMaxH3DriftControlModel,
     "MiniMaxH3StreamCheckpointDigitalHumanToVHS": MiniMaxH3StreamCheckpointDigitalHumanToVHS,
     "MiniMaxH3AudioTimelinePlan": MiniMaxH3AudioTimelinePlan,
 }
@@ -366,7 +352,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "MiniMaxH3AudioVAECompatibility": "H3 Digital Human — Audio VAE Compatibility",
     "MiniMaxH3CheckpointResume": "H3 Digital Human — Checkpoint Resume Gate",
     "MiniMaxH3DigitalHumanAVContext": "H3 Digital Human — Master Audio + Video Context",
-    "MiniMaxH3DriftControlModel": "H3 Digital Human — Drift Control",
     "MiniMaxH3StreamCheckpointDigitalHumanToVHS": "H3 Digital Human — Assemble Checkpoints",
     "MiniMaxH3AudioTimelinePlan": "H3 Digital Human — Audio Timeline Plan",
 }

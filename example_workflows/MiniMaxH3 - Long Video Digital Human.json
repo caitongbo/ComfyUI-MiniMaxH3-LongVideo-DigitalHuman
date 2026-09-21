@@ -1,15 +1,15 @@
 {
   "id": "76b5f713-5824-40ae-a2b7-f02ad62c256c",
-  "revision": 5,
+  "revision": 1,
   "last_node_id": 2601,
-  "last_link_id": 1618,
+  "last_link_id": 1619,
   "nodes": [
     {
       "id": 4,
       "type": "VAELoader",
       "pos": [
-        -2492.471127522787,
-        104.35999999999996
+        -2520,
+        580
       ],
       "size": [
         330,
@@ -46,7 +46,7 @@
       "id": 210,
       "type": "RandomNoise",
       "pos": [
-        1720,
+        1650,
         -730
       ],
       "size": [
@@ -88,14 +88,15 @@
       "widgets_values_named": {
         "noise_seed": 514005817509111,
         "control_after_generate": "fixed"
-      }
+      },
+      "title": "CLIP NOISE — managed shared seed"
     },
     {
       "id": 973,
       "type": "KSamplerSelect",
       "pos": [
-        -1813.0222819010412,
-        -256.799975585937
+        -600,
+        460
       ],
       "size": [
         300.1692791748046,
@@ -127,14 +128,15 @@
         "sampler_name": "euler"
       },
       "color": "#232",
-      "bgcolor": "#353"
+      "bgcolor": "#353",
+      "title": "BASE SAMPLER — Euler"
     },
     {
       "id": 970,
       "type": "PrimitiveInt",
       "pos": [
-        -2136.995506591796,
-        -263.48445312499933
+        -1000,
+        330
       ],
       "size": [
         299.28200000000015,
@@ -168,104 +170,15 @@
         "fixed": "fixed"
       },
       "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 2505,
-      "type": "LoadImage",
-      "title": "Reference Image 3 — Optional (bypassed)",
-      "pos": [
-        -730,
-        500
-      ],
-      "size": [
-        632.808203125,
-        383.7501965644991
-      ],
-      "flags": {},
-      "order": 25,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            1429
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.30.0",
-        "h3_fixed_fps": true
-      },
-      "widgets_values": [
-        "",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "",
-        "upload": "image"
-      }
-    },
-    {
-      "id": 2506,
-      "type": "LoadImage",
-      "title": "Reference Image 4 — Optional (bypassed)",
-      "pos": [
-        -340,
-        500
-      ],
-      "size": [
-        633.2046875,
-        377.3404773341774
-      ],
-      "flags": {},
-      "order": 26,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            1430
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.30.0",
-        "h3_fixed_fps": true
-      },
-      "widgets_values": [
-        "",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "",
-        "upload": "image"
-      }
+      "bgcolor": "#353",
+      "title": "BASE STEPS — Turbo 8"
     },
     {
       "id": 101,
       "type": "PrimitiveFloat",
       "pos": [
-        -1997.6872219179913,
-        -662.0632845788755
+        -2100,
+        790
       ],
       "size": [
         305.3941833496091,
@@ -297,18 +210,19 @@
         "value": 15
       },
       "color": "#346434",
-      "bgcolor": "rgba(24,24,27,.9)"
+      "bgcolor": "rgba(24,24,27,.9)",
+      "title": "RAW CLIP DURATION — 15 seconds"
     },
     {
       "id": 1732,
       "type": "Note",
       "pos": [
-        -1570,
-        -1020
+        -2550,
+        -1030
       ],
       "size": [
-        760,
-        560
+        850,
+        650
       ],
       "flags": {
         "collapsed": false
@@ -322,10 +236,10 @@
         "h3_fixed_fps": true
       },
       "widgets_values": [
-        "# MINIMAX H3 — ONE REUSABLE DIGITAL-HUMAN PROMPT\n\nWrite one production-ready English REF2VA prompt for the entire long-form presenter video. The same prompt is reused for every automatically scheduled Clip.\n\nREFERENCE ROLES\n- <Picture 1>: facial identity, facial structure, hairstyle and age.\n- <Picture 2>: wardrobe, body proportions, posture and environment.\n- <Audio 1>: authoritative narration timing, phonemes, mouth/jaw motion, breathing and expression timing.\n\nCONTINUITY RULES\n- Preserve the same identity, wardrobe, accessories, framing, lighting, camera and environment for the full timeline.\n- Clip 1 establishes the shot. Later Clips inherit a protected verified latent tail and must continue its exact pose, gesture, expression and camera state.\n- Do not reset the scene, change clothing, reframe, zoom, add speech, paraphrase narration or invent audio.\n- Use restrained, context-aware presenter gestures and keep the mouth readable.\n- Describe persistent attributes, not Clip-specific events or timestamps, because this one prompt drives all Clips.\n\nUse clear REF2VA sections: subject_definitions, program_style, summary, retention_analysis, detailed_description, overall_soundscape and non_diegetic_audio. Return exactly one complete prompt."
+        "# MINIMAX H3 — ONE REUSABLE DIGITAL-HUMAN PROMPT\n\nWrite one production-ready English REF2VA prompt for the entire long-form presenter video. The same prompt is reused for every automatically scheduled Clip.\n\nREFERENCE WIRING\n- Upload only one approved medium-shot master image.\n- The workflow sends that same IMAGE output to both <Picture 1> and <Picture 2>; do not replace either path with a different image.\n- <Picture 1>: facial and personal identity authority. Explicitly forbid close-up crop leakage, portrait inserts, duplicated heads, collages, and a second person.\n- <Picture 2>: wardrobe, body proportions, subject scale, framing, composition, background, and lighting authority.\n- <Audio 1>: authoritative narration timing, phonemes, mouth/jaw motion, breathing, and expression timing.\n\nCONTINUITY RULES\n- State that both Picture slots contain the same master and describe one person in one scene.\n- Preserve identity, wardrobe, accessories, subject scale, framing, lighting, camera, background geometry, and objects for the full timeline.\n- Clip 1 establishes the shot. Later Clips inherit a protected verified latent tail and must continue its exact pose, gesture, expression, and camera state.\n- Do not reset the scene, change clothing, reframe, zoom, add objects, add speech, paraphrase narration, or invent audio.\n- Use restrained context-aware presenter gestures and keep the mouth readable.\n- Describe persistent attributes, not Clip-specific events or timestamps, because this one prompt drives every Clip.\n\nUse clear REF2VA sections: subject_definitions, program_style, summary, retention_analysis, detailed_description, overall_soundscape, and non_diegetic_audio. Return exactly one complete prompt."
       ],
       "widgets_values_named": {
-        "text": "# MINIMAX H3 — ONE REUSABLE DIGITAL-HUMAN PROMPT\n\nWrite one production-ready English REF2VA prompt for the entire long-form presenter video. The same prompt is reused for every automatically scheduled Clip.\n\nREFERENCE ROLES\n- <Picture 1>: facial identity, facial structure, hairstyle and age.\n- <Picture 2>: wardrobe, body proportions, posture and environment.\n- <Audio 1>: authoritative narration timing, phonemes, mouth/jaw motion, breathing and expression timing.\n\nCONTINUITY RULES\n- Preserve the same identity, wardrobe, accessories, framing, lighting, camera and environment for the full timeline.\n- Clip 1 establishes the shot. Later Clips inherit a protected verified latent tail and must continue its exact pose, gesture, expression and camera state.\n- Do not reset the scene, change clothing, reframe, zoom, add speech, paraphrase narration or invent audio.\n- Use restrained, context-aware presenter gestures and keep the mouth readable.\n- Describe persistent attributes, not Clip-specific events or timestamps, because this one prompt drives all Clips.\n\nUse clear REF2VA sections: subject_definitions, program_style, summary, retention_analysis, detailed_description, overall_soundscape and non_diegetic_audio. Return exactly one complete prompt."
+        "text": "# MINIMAX H3 — ONE REUSABLE DIGITAL-HUMAN PROMPT\n\nWrite one production-ready English REF2VA prompt for the entire long-form presenter video. The same prompt is reused for every automatically scheduled Clip.\n\nREFERENCE WIRING\n- Upload only one approved medium-shot master image.\n- The workflow sends that same IMAGE output to both <Picture 1> and <Picture 2>; do not replace either path with a different image.\n- <Picture 1>: facial and personal identity authority. Explicitly forbid close-up crop leakage, portrait inserts, duplicated heads, collages, and a second person.\n- <Picture 2>: wardrobe, body proportions, subject scale, framing, composition, background, and lighting authority.\n- <Audio 1>: authoritative narration timing, phonemes, mouth/jaw motion, breathing, and expression timing.\n\nCONTINUITY RULES\n- State that both Picture slots contain the same master and describe one person in one scene.\n- Preserve identity, wardrobe, accessories, subject scale, framing, lighting, camera, background geometry, and objects for the full timeline.\n- Clip 1 establishes the shot. Later Clips inherit a protected verified latent tail and must continue its exact pose, gesture, expression, and camera state.\n- Do not reset the scene, change clothing, reframe, zoom, add objects, add speech, paraphrase narration, or invent audio.\n- Use restrained context-aware presenter gestures and keep the mouth readable.\n- Describe persistent attributes, not Clip-specific events or timestamps, because this one prompt drives every Clip.\n\nUse clear REF2VA sections: subject_definitions, program_style, summary, retention_analysis, detailed_description, overall_soundscape, and non_diegetic_audio. Return exactly one complete prompt."
       },
       "color": "#223",
       "bgcolor": "#335"
@@ -334,11 +248,11 @@
       "id": 900,
       "type": "Note",
       "pos": [
-        -1570,
-        -1510
+        -2550,
+        -1500
       ],
       "size": [
-        848.4776999591475,
+        850,
         390
       ],
       "flags": {},
@@ -351,10 +265,10 @@
         "h3_fixed_fps": true
       },
       "widgets_values": [
-        "WF Guide\n\n1. Select the master audio and reference images.\n2. Write one prompt in the reusable MiniMax H3 Reference to Video node.\n3. Keep Timeline Mode at Auto from Audio. Manual is only for deliberate overrides.\n4. Click Run/resume checkpoints → assemble on DIGITAL HUMAN PROJECT.\n\nThe planner measures decoded audio, computes the required Clip count, and queues this same generation pipeline once per Clip. Every Clip remains an independent checkpoint job; models are released between jobs. Do not queue the full graph."
+        "WF Guide\n\n1. Select the master audio and one master reference image.\n2. Write one prompt in the reusable MiniMax H3 Reference to Video node.\n3. The timeline automatically calculates the required Clip count from decoded audio; no manual Clip count is needed.\n4. Click Run/resume checkpoints → assemble on DIGITAL HUMAN PROJECT.\n\nThe planner measures decoded audio, computes the required Clip count, and queues this same generation pipeline once per Clip. Every Clip remains an independent checkpoint job; models are released between jobs. Do not queue the full graph."
       ],
       "widgets_values_named": {
-        "text": "WF Guide\n\n1. Select the master audio and reference images.\n2. Write one prompt in the reusable MiniMax H3 Reference to Video node.\n3. Keep Timeline Mode at Auto from Audio. Manual is only for deliberate overrides.\n4. Click Run/resume checkpoints → assemble on DIGITAL HUMAN PROJECT.\n\nThe planner measures decoded audio, computes the required Clip count, and queues this same generation pipeline once per Clip. Every Clip remains an independent checkpoint job; models are released between jobs. Do not queue the full graph."
+        "text": "WF Guide\n\n1. Select the master audio and one master reference image.\n2. Write one prompt in the reusable MiniMax H3 Reference to Video node.\n3. The timeline automatically calculates the required Clip count from decoded audio; no manual Clip count is needed.\n4. Click Run/resume checkpoints → assemble on DIGITAL HUMAN PROJECT.\n\nThe planner measures decoded audio, computes the required Clip count, and queues this same generation pipeline once per Clip. Every Clip remains an independent checkpoint job; models are released between jobs. Do not queue the full graph."
       },
       "color": "#432",
       "bgcolor": "#653"
@@ -363,8 +277,8 @@
       "id": 2,
       "type": "CLIPLoader",
       "pos": [
-        -2495.6977941894534,
-        -150.64000000000004
+        -2520,
+        320
       ],
       "size": [
         330,
@@ -405,8 +319,8 @@
       "id": 3,
       "type": "VAELoader",
       "pos": [
-        -2493.546666666667,
-        -6.017744954427088
+        -2520,
+        470
       ],
       "size": [
         330,
@@ -445,8 +359,8 @@
       "id": 100,
       "type": "ResolutionSelector",
       "pos": [
-        -2539.2393615656356,
-        -954.2938952463794
+        -2520,
+        760
       ],
       "size": [
         360,
@@ -490,14 +404,15 @@
         "multiple": 32
       },
       "color": "#232",
-      "bgcolor": "#353"
+      "bgcolor": "#353",
+      "title": "BASE RESOLUTION — portrait output"
     },
     {
       "id": 1,
       "type": "UNETLoader",
       "pos": [
-        -2500,
-        -300
+        -2520,
+        160
       ],
       "size": [
         330,
@@ -536,8 +451,8 @@
       "id": 1733,
       "type": "PrimitiveInt",
       "pos": [
-        -2127.99991861979,
-        -125.15558268229108
+        -1250,
+        780
       ],
       "size": [
         300,
@@ -571,18 +486,19 @@
         "fixed": "fixed"
       },
       "color": "#232",
-      "bgcolor": "#353"
+      "bgcolor": "#353",
+      "title": "VISUAL CONTEXT — 39 frames"
     },
     {
       "id": 940,
       "type": "LoadAudio",
-      "title": "Master Audio — demo_narration.mp3",
+      "title": "Master Audio — select narration",
       "pos": [
-        -1510,
-        230
+        -1500,
+        -1450
       ],
       "size": [
-        456.7623046875,
+        500,
         150
       ],
       "flags": {},
@@ -607,12 +523,12 @@
         "h3_fixed_fps": true
       },
       "widgets_values": [
-        "h3_digital_human/demo_narration.mp3",
+        "h3_digital_human_demo_narration.mp3",
         null,
         null
       ],
       "widgets_values_named": {
-        "audio": "h3_digital_human/demo_narration.mp3",
+        "audio": "h3_digital_human_demo_narration.mp3",
         "upload": null
       },
       "color": "#232",
@@ -621,13 +537,13 @@
     {
       "id": 910,
       "type": "LoadImage",
-      "title": "Reference Image 1 — Face / Identity",
+      "title": "Master Reference — one upload → Picture 1 + Picture 2",
       "pos": [
-        -1510,
-        500
+        -1500,
+        -1180
       ],
       "size": [
-        456.7623046875,
+        500,
         360
       ],
       "flags": {},
@@ -639,7 +555,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            185
+            185,
+            1619
           ]
         },
         {
@@ -655,56 +572,11 @@
         "h3_fixed_fps": true
       },
       "widgets_values": [
-        "h3_digital_human/presenter_reference.png",
+        "h3_digital_human_presenter_reference.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "h3_digital_human/presenter_reference.png",
-        "upload": "image"
-      }
-    },
-    {
-      "id": 911,
-      "type": "LoadImage",
-      "title": "Reference Image 2 — Body / Wardrobe",
-      "pos": [
-        -1120,
-        500
-      ],
-      "size": [
-        459.6060546875,
-        360
-      ],
-      "flags": {},
-      "order": 43,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            186
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.30.0",
-        "h3_fixed_fps": true
-      },
-      "widgets_values": [
-        "h3_digital_human/presenter_reference.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "h3_digital_human/presenter_reference.png",
+        "image": "h3_digital_human_presenter_reference.png",
         "upload": "image"
       }
     },
@@ -712,8 +584,8 @@
       "id": 2510,
       "type": "MiniMaxH3AudioVAECompatibility",
       "pos": [
-        -3284.157838152504,
-        104.35999999999996
+        -2120,
+        570
       ],
       "size": [
         330,
@@ -742,14 +614,15 @@
       "properties": {
         "Node name for S&R": "MiniMaxH3AudioVAECompatibility",
         "h3_fixed_fps": true
-      }
+      },
+      "title": "BASE AUDIO VAE — H3 compatibility"
     },
     {
       "id": 102,
       "type": "ComfyMathExpression",
       "pos": [
-        -1287.3041511437257,
-        -967.8216043606394
+        -1700,
+        750
       ],
       "size": [
         350,
@@ -803,14 +676,15 @@
       ],
       "widgets_values_named": {
         "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
-      }
+      },
+      "title": "H3 FRAME GRID — duration → valid frames"
     },
     {
       "id": 1756,
       "type": "ModelAttentionBackend",
       "pos": [
-        -2473.9350645703757,
-        -455.1955579376644
+        -2120,
+        175
       ],
       "size": [
         270,
@@ -846,13 +720,14 @@
       ],
       "widgets_values_named": {
         "attention": "comfy kitchen attention"
-      }
+      },
+      "title": "BASE ATTENTION BACKEND"
     },
     {
       "id": 200,
       "type": "MiniMaxH3ReferenceToVideo",
       "pos": [
-        420,
+        300,
         -760
       ],
       "size": [
@@ -886,22 +761,23 @@
           "link": 185
         },
         {
+          "label": "ref_image_1 — same master reference (stability anchor)",
           "name": "ref_images.ref_image_1",
           "shape": 7,
           "type": "IMAGE",
-          "link": 186
+          "link": 1619
         },
         {
           "name": "ref_images.ref_image_2",
           "shape": 7,
           "type": "IMAGE",
-          "link": 1429
+          "link": null
         },
         {
           "name": "ref_images.ref_image_3",
           "shape": 7,
           "type": "IMAGE",
-          "link": 1430
+          "link": null
         },
         {
           "name": "ref_images.ref_image_4",
@@ -986,14 +862,14 @@
         "h3_fixed_fps": true
       },
       "widgets_values": [
-        "subject_definitions:\n\n<Subject 1> is the same professional presenter defined jointly by <Picture 1> and <Picture 2>.\n\n<Picture 1> has priority for facial identity, facial structure, hairstyle, age appearance, skin appearance, and personal identity.\n\n<Picture 2> has priority for full-body appearance, wardrobe, body proportions, presenter posture, and professional studio environment.\n\n<Audio 1> is the protected narration audio track for this clip.\n\n<Audio 1> is the only source of speech timing.\n\n<Audio 1> controls:\n- phoneme timing\n- lip synchronization\n- mouth movement\n- jaw movement\n- facial expression timing\n- breathing rhythm\n\nThe same <Subject 1> identity must be preserved throughout all clips.\n\nDo not change:\n- facial identity\n- gender appearance\n- age appearance\n- hairstyle\n- clothing\n- accessories\n- body proportions\n- studio environment\n\n\nprogram_style:\n\nThis is a professional informational presenter program.\n\nThe visual style is:\n\n- professional broadcast news style\n- realistic human presentation\n- trustworthy\n- authoritative\n- clear\n- friendly\n\nThe presenter behaves like a professional studio presenter explaining the supplied narration.\n\nAvoid:\n- advertising style\n- cinematic style\n- exaggerated performance\n- dramatic expressions\n\n\nsummary:\n\n[reference generation]\n\nGenerate a professional informational presenter video.\n\n<Subject 1> presents the protected narration clearly and naturally.\n\nThe presenter maintains a calm, professional, and approachable broadcast presentation style.\n\nThe video should look like a high-quality studio information program.\n\n\nretention_analysis:\n\n<Subject 1>:\n\nfully_preserved -\n\nPreserve the exact presenter identity defined by <Picture 1> and <Picture 2>.\n\nMaintain:\n\n- identical face\n- identical hairstyle\n- identical clothing\n- identical body proportions\n- identical studio environment\n- identical lighting style\n\nOnly allow:\n\n- natural mouth movement\n- natural blinking\n- subtle facial expression changes\n- context-aware presenter gestures\n\n\nCamera:\n\nfully_preserved -\n\nPreserve:\n\n- camera position\n- camera height\n- focal length\n- perspective\n- framing\n- composition\n\nThe camera setup remains identical throughout the clip.\n\nNo:\n\n- camera drift\n- reframing\n- zoom\n- push in\n- pull out\n- pan\n- tilt\n\n\n<Audio 1>:\n\nfully_preserved -\n\nThe spoken audio must be followed exactly.\n\nDo not:\n\n- add extra words\n- remove words\n- modify spoken content\n- generate additional speech\n\n\ndetailed_description:\n\nThe target video is a realistic professional informational presenter program.\n\nThe video uses a vertical 9:16 locked-off broadcast composition.\n\n[Shot 1]\n\nA static medium shot captured by a fixed tripod camera.\n\nThe camera position, camera height, focal length, perspective, and framing remain unchanged throughout the entire clip.\n\nThe camera does not move.\n\nNo zoom.\nNo push in.\nNo pull out.\nNo pan.\nNo tilt.\nNo reframing.\n\n<Subject 1> appears in the professional studio environment defined by <Picture 2>.\n\nThe presenter remains at the same distance from the camera throughout the entire shot.\n\nThe presenter maintains the exact composition defined by the reference image.\n\nThe lighting remains consistent with <Picture 2>.\n\nThe presenter maintains direct eye contact with the camera.\n\nThe presenter has a calm, friendly, and trustworthy expression.\n\nThe presenter maintains a professional broadcast posture.\n\n\nThe presenter uses natural, context-aware hand gestures that match the spoken content.\n\nThe gestures follow the meaning and rhythm of the narration naturally, similar to a professional television presenter.\n\nThe gestures should emphasize important policy points when appropriate.\n\nHand movements are subtle, controlled, and professional.\n\nAvoid exaggerated arm movements or dramatic gestures.\n\nThe presenter remains within the original camera framing.\n\n\nThe presenter speaks naturally.\n\nThe mouth movement, jaw movement, and facial expression timing must accurately follow the phoneme sequence of <Audio 1>.\n\nThe presenter does not add any extra speech or sound.\n\nDo not summarize, paraphrase, or modify the spoken content.\n\n\nFor continuation clips:\n\nContinue the exact previous frame state.\n\nThe first frame must seamlessly continue from the previous clip ending.\n\nPreserve:\n\n- same facial position\n- same body position\n- same camera framing\n- same camera perspective\n- same clothing\n- same lighting\n- same studio environment\n\nThe camera remains locked in the same static shot.\n\nThe presenter continues the natural speaking motion and context-aware gestures from the previous clip.\n\nNo visual reset.\n\nNo scene transition.\n\n\noverall_soundscape:\n\n<Audio 1> is the protected narration audio.\n\nThe narration is clear and isolated.\n\nNo additional voice.\n\nNo environmental speech.\n\n\nnon_diegetic_audio:\n\nNo background music.\n\n<Audio 1> is the only audio source.\n\n<Audio 1> drives:\n\n- lip synchronization\n- mouth movement\n- facial expression timing\n- speaking rhythm",
+        "subject_definitions:\n\n<Subject 1> is the same professional presenter defined jointly by <Picture 1> and <Picture 2>.\n\n<Picture 1> has priority for facial identity, facial structure, hairstyle, age appearance, skin appearance, and personal identity.\n\n<Picture 2> has priority for full-body appearance, wardrobe, body proportions, presenter posture, camera framing, composition, professional studio environment, and lighting.\n\n<Audio 1> is the protected narration audio track for this clip.\n\n<Audio 1> is the only source of speech timing.\n\n<Audio 1> controls:\n\n* phoneme timing\n* lip synchronization\n* mouth movement\n* jaw movement\n* facial expression timing\n* breathing rhythm\n\nThe same <Subject 1> identity must be preserved throughout all clips.\n\nDo not change:\n\n* facial identity\n* gender appearance\n* age appearance\n* hairstyle\n* clothing\n* accessories\n* body proportions\n* studio environment\n\nprogram_style:\n\nThe video is a professional informational presentation.\n\nThe visual style is:\n\n* professional broadcast style\n* realistic human presentation\n* trustworthy\n* clear\n* composed\n* friendly\n\nThe presenter behaves like a professional television presenter explaining informational content.\n\nAvoid:\n\n* advertising style\n* cinematic style\n* exaggerated performance\n* dramatic expressions\n\nsummary:\n\n[reference generation + audio reuse]\n\nGenerate a professional informational presenter video.\n\n<Subject 1> presents the content using <Audio 1>, which is reused as the target video's complete audio track.\n\nThe presenter maintains a calm, professional, and approachable broadcast presentation style.\n\nThe video should maintain a consistent high-quality professional broadcast appearance.\n\nretention_analysis:\n\n<Subject 1>:\n\nfully_preserved -\n\nPreserve the exact presenter identity defined by <Picture 1> and <Picture 2>.\n\nMaintain:\n\n* identical face\n* identical hairstyle\n* identical clothing\n* identical body proportions\n* identical studio environment\n* identical lighting style\n\nOnly allow:\n\n* natural mouth movement\n* natural blinking\n* subtle facial expression changes\n* context-aware presenter gestures\n\nCamera:\n\nfully_preserved -\n\nPreserve:\n\n* camera position\n* camera height\n* focal length\n* perspective\n* framing\n* composition\n\nThe camera setup remains identical throughout the clip.\n\nNo:\n\n* camera drift\n* reframing\n* zoom\n* push in\n* pull out\n* pan\n* tilt\n\n<Audio 1>:\n\nfully_copy -\n\n<Audio 1> is reused 1:1 as the target video's complete final audio track.\n\nThe spoken audio must be followed exactly.\n\nDo not:\n\n* add extra words\n* remove words\n* modify spoken content\n* generate additional speech\n* add additional audio layers\n\ndetailed_description:\n\nThe target video is a realistic professional informational presentation.\n\n[Shot 1]\n\nA static medium shot captured by a fixed tripod camera.\n\nThe camera position, camera height, focal length, perspective, and framing remain unchanged throughout the entire clip.\n\nThe camera does not move.\n\nNo zoom.\nNo push in.\nNo pull out.\nNo pan.\nNo tilt.\nNo reframing.\n\n<Subject 1> appears in the professional studio environment defined by <Picture 2>.\n\nThe presenter remains at the same distance from the camera throughout the entire shot.\n\nThe presenter maintains the exact composition defined by <Picture 2>.\n\nThe lighting remains consistent with <Picture 2>.\n\nThe presenter maintains direct eye contact with the camera.\n\nThe presenter has a calm, friendly, and trustworthy expression.\n\nThe presenter maintains a professional broadcast posture.\n\nThe presenter uses natural, context-aware hand gestures that match the spoken content.\n\nThe gestures follow the meaning and rhythm of the narration naturally, similar to a professional television presenter.\n\nThe gestures should emphasize important points when appropriate.\n\nHand movements are subtle, controlled, and professional.\n\nAvoid exaggerated arm movements or dramatic gestures.\n\nThe presenter remains within the original camera framing.\n\nThe presenter speaks naturally.\n\nThe mouth movement, jaw movement, and facial expression timing must accurately follow the phoneme sequence of <Audio 1>.\n\nThe presenter does not add any extra speech or sound.\n\nDo not summarize, paraphrase, or modify the spoken content.\n\nFor continuation clips:\n\nContinue the exact previous frame state.\n\nThe first frame must seamlessly continue from the previous clip ending.\n\nPreserve:\n\n* same facial position\n* same body position\n* same camera framing\n* same camera perspective\n* same clothing\n* same lighting\n* same studio environment\n\nThe camera remains locked in the same static shot.\n\nThe presenter continues the natural speaking motion and context-aware gestures from the previous clip.\n\nNo visual reset.\n\nNo scene transition.\n\noverall_soundscape:\n\n<Audio 1> is the protected narration audio.\n\nThe narration is clear and isolated.\n\nNo additional voice.\n\nNo environmental speech.\n\nnon_diegetic_music:\n\nNo background music.\n\n<Audio 1> is the only audio source.\n\n<Audio 1> drives:\n\n* lip synchronization\n* mouth movement\n* facial expression timing\n* speaking rhythm",
         960,
         544,
         362,
         "match"
       ],
       "widgets_values_named": {
-        "prompt": "subject_definitions:\n\n<Subject 1> is the same professional presenter defined jointly by <Picture 1> and <Picture 2>.\n\n<Picture 1> has priority for facial identity, facial structure, hairstyle, age appearance, skin appearance, and personal identity.\n\n<Picture 2> has priority for full-body appearance, wardrobe, body proportions, presenter posture, and professional studio environment.\n\n<Audio 1> is the protected narration audio track for this clip.\n\n<Audio 1> is the only source of speech timing.\n\n<Audio 1> controls:\n- phoneme timing\n- lip synchronization\n- mouth movement\n- jaw movement\n- facial expression timing\n- breathing rhythm\n\nThe same <Subject 1> identity must be preserved throughout all clips.\n\nDo not change:\n- facial identity\n- gender appearance\n- age appearance\n- hairstyle\n- clothing\n- accessories\n- body proportions\n- studio environment\n\n\nprogram_style:\n\nThis is a professional informational presenter program.\n\nThe visual style is:\n\n- professional broadcast news style\n- realistic human presentation\n- trustworthy\n- authoritative\n- clear\n- friendly\n\nThe presenter behaves like a professional studio presenter explaining the supplied narration.\n\nAvoid:\n- advertising style\n- cinematic style\n- exaggerated performance\n- dramatic expressions\n\n\nsummary:\n\n[reference generation]\n\nGenerate a professional informational presenter video.\n\n<Subject 1> presents the protected narration clearly and naturally.\n\nThe presenter maintains a calm, professional, and approachable broadcast presentation style.\n\nThe video should look like a high-quality studio information program.\n\n\nretention_analysis:\n\n<Subject 1>:\n\nfully_preserved -\n\nPreserve the exact presenter identity defined by <Picture 1> and <Picture 2>.\n\nMaintain:\n\n- identical face\n- identical hairstyle\n- identical clothing\n- identical body proportions\n- identical studio environment\n- identical lighting style\n\nOnly allow:\n\n- natural mouth movement\n- natural blinking\n- subtle facial expression changes\n- context-aware presenter gestures\n\n\nCamera:\n\nfully_preserved -\n\nPreserve:\n\n- camera position\n- camera height\n- focal length\n- perspective\n- framing\n- composition\n\nThe camera setup remains identical throughout the clip.\n\nNo:\n\n- camera drift\n- reframing\n- zoom\n- push in\n- pull out\n- pan\n- tilt\n\n\n<Audio 1>:\n\nfully_preserved -\n\nThe spoken audio must be followed exactly.\n\nDo not:\n\n- add extra words\n- remove words\n- modify spoken content\n- generate additional speech\n\n\ndetailed_description:\n\nThe target video is a realistic professional informational presenter program.\n\nThe video uses a vertical 9:16 locked-off broadcast composition.\n\n[Shot 1]\n\nA static medium shot captured by a fixed tripod camera.\n\nThe camera position, camera height, focal length, perspective, and framing remain unchanged throughout the entire clip.\n\nThe camera does not move.\n\nNo zoom.\nNo push in.\nNo pull out.\nNo pan.\nNo tilt.\nNo reframing.\n\n<Subject 1> appears in the professional studio environment defined by <Picture 2>.\n\nThe presenter remains at the same distance from the camera throughout the entire shot.\n\nThe presenter maintains the exact composition defined by the reference image.\n\nThe lighting remains consistent with <Picture 2>.\n\nThe presenter maintains direct eye contact with the camera.\n\nThe presenter has a calm, friendly, and trustworthy expression.\n\nThe presenter maintains a professional broadcast posture.\n\n\nThe presenter uses natural, context-aware hand gestures that match the spoken content.\n\nThe gestures follow the meaning and rhythm of the narration naturally, similar to a professional television presenter.\n\nThe gestures should emphasize important policy points when appropriate.\n\nHand movements are subtle, controlled, and professional.\n\nAvoid exaggerated arm movements or dramatic gestures.\n\nThe presenter remains within the original camera framing.\n\n\nThe presenter speaks naturally.\n\nThe mouth movement, jaw movement, and facial expression timing must accurately follow the phoneme sequence of <Audio 1>.\n\nThe presenter does not add any extra speech or sound.\n\nDo not summarize, paraphrase, or modify the spoken content.\n\n\nFor continuation clips:\n\nContinue the exact previous frame state.\n\nThe first frame must seamlessly continue from the previous clip ending.\n\nPreserve:\n\n- same facial position\n- same body position\n- same camera framing\n- same camera perspective\n- same clothing\n- same lighting\n- same studio environment\n\nThe camera remains locked in the same static shot.\n\nThe presenter continues the natural speaking motion and context-aware gestures from the previous clip.\n\nNo visual reset.\n\nNo scene transition.\n\n\noverall_soundscape:\n\n<Audio 1> is the protected narration audio.\n\nThe narration is clear and isolated.\n\nNo additional voice.\n\nNo environmental speech.\n\n\nnon_diegetic_audio:\n\nNo background music.\n\n<Audio 1> is the only audio source.\n\n<Audio 1> drives:\n\n- lip synchronization\n- mouth movement\n- facial expression timing\n- speaking rhythm",
+        "prompt": "subject_definitions:\n\n<Subject 1> is the same professional presenter defined jointly by <Picture 1> and <Picture 2>.\n\n<Picture 1> has priority for facial identity, facial structure, hairstyle, age appearance, skin appearance, and personal identity.\n\n<Picture 2> has priority for full-body appearance, wardrobe, body proportions, presenter posture, camera framing, composition, professional studio environment, and lighting.\n\n<Audio 1> is the protected narration audio track for this clip.\n\n<Audio 1> is the only source of speech timing.\n\n<Audio 1> controls:\n\n* phoneme timing\n* lip synchronization\n* mouth movement\n* jaw movement\n* facial expression timing\n* breathing rhythm\n\nThe same <Subject 1> identity must be preserved throughout all clips.\n\nDo not change:\n\n* facial identity\n* gender appearance\n* age appearance\n* hairstyle\n* clothing\n* accessories\n* body proportions\n* studio environment\n\nprogram_style:\n\nThe video is a professional informational presentation.\n\nThe visual style is:\n\n* professional broadcast style\n* realistic human presentation\n* trustworthy\n* clear\n* composed\n* friendly\n\nThe presenter behaves like a professional television presenter explaining informational content.\n\nAvoid:\n\n* advertising style\n* cinematic style\n* exaggerated performance\n* dramatic expressions\n\nsummary:\n\n[reference generation + audio reuse]\n\nGenerate a professional informational presenter video.\n\n<Subject 1> presents the content using <Audio 1>, which is reused as the target video's complete audio track.\n\nThe presenter maintains a calm, professional, and approachable broadcast presentation style.\n\nThe video should maintain a consistent high-quality professional broadcast appearance.\n\nretention_analysis:\n\n<Subject 1>:\n\nfully_preserved -\n\nPreserve the exact presenter identity defined by <Picture 1> and <Picture 2>.\n\nMaintain:\n\n* identical face\n* identical hairstyle\n* identical clothing\n* identical body proportions\n* identical studio environment\n* identical lighting style\n\nOnly allow:\n\n* natural mouth movement\n* natural blinking\n* subtle facial expression changes\n* context-aware presenter gestures\n\nCamera:\n\nfully_preserved -\n\nPreserve:\n\n* camera position\n* camera height\n* focal length\n* perspective\n* framing\n* composition\n\nThe camera setup remains identical throughout the clip.\n\nNo:\n\n* camera drift\n* reframing\n* zoom\n* push in\n* pull out\n* pan\n* tilt\n\n<Audio 1>:\n\nfully_copy -\n\n<Audio 1> is reused 1:1 as the target video's complete final audio track.\n\nThe spoken audio must be followed exactly.\n\nDo not:\n\n* add extra words\n* remove words\n* modify spoken content\n* generate additional speech\n* add additional audio layers\n\ndetailed_description:\n\nThe target video is a realistic professional informational presentation.\n\n[Shot 1]\n\nA static medium shot captured by a fixed tripod camera.\n\nThe camera position, camera height, focal length, perspective, and framing remain unchanged throughout the entire clip.\n\nThe camera does not move.\n\nNo zoom.\nNo push in.\nNo pull out.\nNo pan.\nNo tilt.\nNo reframing.\n\n<Subject 1> appears in the professional studio environment defined by <Picture 2>.\n\nThe presenter remains at the same distance from the camera throughout the entire shot.\n\nThe presenter maintains the exact composition defined by <Picture 2>.\n\nThe lighting remains consistent with <Picture 2>.\n\nThe presenter maintains direct eye contact with the camera.\n\nThe presenter has a calm, friendly, and trustworthy expression.\n\nThe presenter maintains a professional broadcast posture.\n\nThe presenter uses natural, context-aware hand gestures that match the spoken content.\n\nThe gestures follow the meaning and rhythm of the narration naturally, similar to a professional television presenter.\n\nThe gestures should emphasize important points when appropriate.\n\nHand movements are subtle, controlled, and professional.\n\nAvoid exaggerated arm movements or dramatic gestures.\n\nThe presenter remains within the original camera framing.\n\nThe presenter speaks naturally.\n\nThe mouth movement, jaw movement, and facial expression timing must accurately follow the phoneme sequence of <Audio 1>.\n\nThe presenter does not add any extra speech or sound.\n\nDo not summarize, paraphrase, or modify the spoken content.\n\nFor continuation clips:\n\nContinue the exact previous frame state.\n\nThe first frame must seamlessly continue from the previous clip ending.\n\nPreserve:\n\n* same facial position\n* same body position\n* same camera framing\n* same camera perspective\n* same clothing\n* same lighting\n* same studio environment\n\nThe camera remains locked in the same static shot.\n\nThe presenter continues the natural speaking motion and context-aware gestures from the previous clip.\n\nNo visual reset.\n\nNo scene transition.\n\noverall_soundscape:\n\n<Audio 1> is the protected narration audio.\n\nThe narration is clear and isolated.\n\nNo additional voice.\n\nNo environmental speech.\n\nnon_diegetic_music:\n\nNo background music.\n\n<Audio 1> is the only audio source.\n\n<Audio 1> drives:\n\n* lip synchronization\n* mouth movement\n* facial expression timing\n* speaking rhythm",
         "width": 960,
         "height": 544,
         "length": 362,
@@ -1006,8 +882,8 @@
       "id": 1753,
       "type": "ComfyMathExpression",
       "pos": [
-        -1987.0994340124437,
-        554.0282420181577
+        -850,
+        750
       ],
       "size": [
         353.39609375,
@@ -1046,7 +922,6 @@
           "type": "INT",
           "links": [
             1250,
-            1515,
             1611,
             1615
           ]
@@ -1068,14 +943,15 @@
       ],
       "widgets_values_named": {
         "expression": "max(5, min(a, (b - (b % 2)) / 2)) - ((max(5, min(a, (b - (b % 2)) / 2)) - 5) % 17)"
-      }
+      },
+      "title": "H3 CONTEXT GRID — safe aligned overlap"
     },
     {
       "id": 977,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -2160.6446535976743,
-        -468.49687443499676
+        -1760,
+        160
       ],
       "size": [
         270,
@@ -1120,8 +996,8 @@
       "id": 5,
       "type": "MiniMaxH3SigmaShift",
       "pos": [
-        -1813.7314110590223,
-        -478.29008291346463
+        -1400,
+        130
       ],
       "size": [
         300,
@@ -1143,7 +1019,7 @@
           "type": "MODEL",
           "links": [
             13,
-            34
+            1516
           ]
         }
       ],
@@ -1160,14 +1036,15 @@
       "widgets_values_named": {
         "shift_video": 12,
         "shift_audio": 3
-      }
+      },
+      "title": "BASE SIGMA SHIFT — video 12 / audio 3"
     },
     {
       "id": 123,
       "type": "BasicScheduler",
       "pos": [
-        -1813,
-        -140
+        -600,
+        300
       ],
       "size": [
         300,
@@ -1196,8 +1073,7 @@
           "name": "SIGMAS",
           "type": "SIGMAS",
           "links": [
-            40,
-            1514
+            40
           ]
         }
       ],
@@ -1216,13 +1092,14 @@
         "scheduler": "simple",
         "steps": 8,
         "denoise": 1
-      }
+      },
+      "title": "BASE SCHEDULER — simple / 8 / denoise 1"
     },
     {
       "id": 211,
       "type": "BasicGuider",
       "pos": [
-        2070,
+        1990,
         -550
       ],
       "size": [
@@ -1258,13 +1135,14 @@
         "cnr_id": "comfy-core",
         "ver": "0.30.0",
         "h3_fixed_fps": true
-      }
+      },
+      "title": "CLIP GUIDER — shared R2V conditioning"
     },
     {
       "id": 201,
       "type": "MiniMaxH3DigitalHumanAVContext",
       "pos": [
-        1060,
+        940,
         -700
       ],
       "size": [
@@ -1312,8 +1190,7 @@
           "name": "latent",
           "type": "LATENT",
           "links": [
-            656,
-            1513
+            656
           ]
         },
         {
@@ -1355,7 +1232,7 @@
       "id": 214,
       "type": "SamplerCustomAdvanced",
       "pos": [
-        2420,
+        2340,
         -620
       ],
       "size": [
@@ -1418,7 +1295,7 @@
       "id": 2294,
       "type": "VAEDecode",
       "pos": [
-        3260,
+        3310,
         -520
       ],
       "size": [
@@ -1454,13 +1331,14 @@
         "cnr_id": "comfy-core",
         "ver": "0.33.0",
         "h3_fixed_fps": true
-      }
+      },
+      "title": "CURRENT CLIP — Video VAE decode"
     },
     {
       "id": 2296,
       "type": "VHS_VideoCombine",
       "pos": [
-        3660,
+        3710,
         -700
       ],
       "size": [
@@ -1549,7 +1427,7 @@
       "id": 2512,
       "type": "MiniMaxH3CheckpointResume",
       "pos": [
-        2820,
+        2740,
         -570
       ],
       "size": [
@@ -1590,7 +1468,7 @@
       ],
       "properties": {
         "aux_id": "caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman",
-        "ver": "checkpoint-resume-v1",
+        "ver": "checkpoint-resume",
         "Node name for S&R": "MiniMaxH3CheckpointResume",
         "h3_digital_human_role": "reusable_checkpoint_gate"
       },
@@ -1612,7 +1490,7 @@
       "id": 2531,
       "type": "MiniMaxH3StreamCheckpointDigitalHumanToVHS",
       "pos": [
-        -620,
+        -720,
         -1530
       ],
       "size": [
@@ -1659,7 +1537,7 @@
       ],
       "properties": {
         "aux_id": "caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman",
-        "ver": "checkpoint-managed-v1",
+        "ver": "checkpoint-managed",
         "Node name for S&R": "MiniMaxH3StreamCheckpointDigitalHumanToVHS"
       },
       "widgets_values": [
@@ -1699,81 +1577,11 @@
       "title": "DIGITAL HUMAN PROJECT — auto timeline → checkpoints → assemble"
     },
     {
-      "id": 2532,
-      "type": "MiniMaxH3DriftControlModel",
-      "pos": [
-        1720,
-        -470
-      ],
-      "size": [
-        300,
-        126
-      ],
-      "flags": {},
-      "order": 217,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 34
-        },
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "link": 1513
-        },
-        {
-          "name": "sigmas",
-          "type": "SIGMAS",
-          "link": 1514
-        },
-        {
-          "name": "context_frames",
-          "type": "INT",
-          "link": 1515
-        },
-        {
-          "name": "enabled",
-          "type": "BOOLEAN",
-          "link": null
-        },
-        {
-          "name": "clip_index",
-          "type": "INT",
-          "widget": {
-            "name": "clip_index"
-          },
-          "link": 1616
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            1516
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MiniMaxH3DriftControlModel",
-        "ver": "multiref-drift-control-v1",
-        "h3_digital_human_node_id": 201
-      },
-      "widgets_values": [
-        true
-      ],
-      "widgets_values_named": {
-        "enabled": true
-      }
-    },
-    {
       "id": 2551,
       "type": "PrimitiveInt",
       "pos": [
-        -2140,
-        80
+        -1400,
+        420
       ],
       "size": [
         570,
@@ -1792,7 +1600,7 @@
           ]
         }
       ],
-      "title": "BASE — native Turbo 8-step / shared seed",
+      "title": "BASE SEED — fixed and shared across clips",
       "properties": {
         "Node name for S&R": "PrimitiveInt",
         "cnr_id": "comfy-core",
@@ -1814,7 +1622,7 @@
       "id": 2600,
       "type": "MiniMaxH3AudioTimelinePlan",
       "pos": [
-        -620,
+        -720,
         -680
       ],
       "size": [
@@ -1881,15 +1689,11 @@
       "widgets_values": [
         362,
         39,
-        1,
-        "Auto from Audio",
-        4
+        1
       ],
       "widgets_values_named": {
         "raw_clip_frames": 362,
         "context_frames": 39,
-        "clip_mode": "Auto from Audio",
-        "manual_clips": 4,
         "clip_index": 1
       },
       "color": "#29483a",
@@ -1899,14 +1703,16 @@
       "id": 2601,
       "type": "PrimitiveInt",
       "pos": [
-        1060,
-        -370
+        -720,
+        -330
       ],
       "size": [
-        360,
+        420,
         82
       ],
-      "flags": {},
+      "flags": {
+        "collapsed": true
+      },
       "order": 301,
       "mode": 0,
       "inputs": [],
@@ -1917,7 +1723,6 @@
           "links": [
             1612,
             1613,
-            1616,
             1617
           ]
         }
@@ -1999,14 +1804,6 @@
       "INT"
     ],
     [
-      34,
-      5,
-      0,
-      2532,
-      0,
-      "MODEL"
-    ],
-    [
       36,
       210,
       0,
@@ -2052,14 +1849,6 @@
       0,
       200,
       3,
-      "IMAGE"
-    ],
-    [
-      186,
-      911,
-      0,
-      200,
-      4,
       "IMAGE"
     ],
     [
@@ -2183,22 +1972,6 @@
       "LATENT"
     ],
     [
-      1429,
-      2505,
-      0,
-      200,
-      5,
-      "IMAGE"
-    ],
-    [
-      1430,
-      2506,
-      0,
-      200,
-      6,
-      "IMAGE"
-    ],
-    [
       1490,
       4,
       0,
@@ -2231,32 +2004,8 @@
       "AUDIO"
     ],
     [
-      1513,
-      201,
-      0,
-      2532,
-      1,
-      "LATENT"
-    ],
-    [
-      1514,
-      123,
-      0,
-      2532,
-      2,
-      "SIGMAS"
-    ],
-    [
-      1515,
-      1753,
-      1,
-      2532,
-      3,
-      "INT"
-    ],
-    [
       1516,
-      2532,
+      5,
       0,
       211,
       0,
@@ -2327,14 +2076,6 @@
       "INT"
     ],
     [
-      1616,
-      2601,
-      0,
-      2532,
-      5,
-      "INT"
-    ],
-    [
       1617,
       2601,
       0,
@@ -2349,17 +2090,25 @@
       2296,
       1,
       "AUDIO"
+    ],
+    [
+      1619,
+      910,
+      0,
+      200,
+      4,
+      "IMAGE"
     ]
   ],
   "groups": [
     {
       "id": 1,
-      "title": "START HERE — automatic timeline and safe checkpoint assembly",
+      "title": "PROJECT CONTROL — plan → generate → assemble",
       "bounding": [
-        -700,
-        -1600,
-        700,
-        1250
+        -800,
+        -1570,
+        800,
+        1400
       ],
       "color": "#2f6b3f",
       "font_size": 24,
@@ -2367,12 +2116,12 @@
     },
     {
       "id": 2,
-      "title": "ONE REUSABLE CLIP PIPELINE",
+      "title": "ONE REUSABLE CLIP PIPELINE — automatic per-clip execution",
       "bounding": [
-        350,
+        200,
         -850,
-        2850,
-        900
+        3000,
+        950
       ],
       "color": "#365574",
       "font_size": 24,
@@ -2382,7 +2131,7 @@
       "id": 3,
       "title": "CURRENT CLIP PREVIEW",
       "bounding": [
-        3200,
+        3250,
         -820,
         900,
         650
@@ -2393,12 +2142,12 @@
     },
     {
       "id": 4,
-      "title": "MASTER AUDIO + GLOBAL REFERENCES",
+      "title": "MASTER INPUTS — audio + one image → dual R2V anchor",
       "bounding": [
-        -1600,
-        100,
-        1650,
-        900
+        -1570,
+        -1570,
+        650,
+        850
       ],
       "color": "#4d5d36",
       "font_size": 24,
@@ -2406,12 +2155,12 @@
     },
     {
       "id": 5,
-      "title": "GUIDANCE",
+      "title": "START HERE — quick guide + official Ref2VA prompt format",
       "bounding": [
-        -1640,
-        -1580,
-        950,
-        1500
+        -2600,
+        -1570,
+        1000,
+        1320
       ],
       "color": "#5b4635",
       "font_size": 24,
@@ -2419,12 +2168,12 @@
     },
     {
       "id": 6,
-      "title": "MODEL + BASE GENERATION SETTINGS",
+      "title": "ADVANCED MODEL + SAMPLING SETTINGS — normally unchanged",
       "bounding": [
-        -3400,
-        -1050,
-        1750,
-        1850
+        -2600,
+        50,
+        2600,
+        950
       ],
       "color": "#4b4668",
       "font_size": 24,
@@ -2434,9 +2183,9 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.62,
+      "scale": 0.72,
       "offset": [
-        2209.9176716098955,
+        2600,
         1650
       ]
     },

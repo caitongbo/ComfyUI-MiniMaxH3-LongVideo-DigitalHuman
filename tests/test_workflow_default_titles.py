@@ -13,7 +13,7 @@ def test_digital_human_workflow_has_clear_stage_titles():
     data = _load()
     titles = {node.get("title") for node in data["nodes"]}
     assert "AUTO TIMELINE — decoded audio duration → clip count" in titles
-    assert "BASE — native Turbo 8-step / shared seed" in titles
+    assert "BASE SEED — fixed and shared across clips" in titles
     assert "DIGITAL HUMAN PROJECT — auto timeline → checkpoints → assemble" in titles
 
 

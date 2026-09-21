@@ -1,0 +1,11 @@
+# Development and repository automation; not needed by the installed node pack.
+.github/
+tests/
+.editorconfig
+.gitattributes
+pytest.ini
+requirements-test.txt
+docs/RELEASING.md
+SHA256SUMS.txt
+scripts/checksums.py
+example_outputs/*.mp4

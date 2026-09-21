@@ -30,7 +30,7 @@ def test_workflow_uses_one_direct_native_eight_step_sampler():
     assert sum(node["type"] == "SamplerCustomAdvanced"
                for node in data["nodes"]) == 1
     seed = next(node for node in data["nodes"]
-                if node.get("title") == "BASE — native Turbo 8-step / shared seed")
+                if node.get("title") == "BASE SEED — fixed and shared across clips")
     assert seed["widgets_values_named"]["value"] == 514005817509111
     assert len(seed["outputs"][0]["links"]) == 1
     assert nodes[links[seed["outputs"][0]["links"][0]][3]]["type"] == "RandomNoise"

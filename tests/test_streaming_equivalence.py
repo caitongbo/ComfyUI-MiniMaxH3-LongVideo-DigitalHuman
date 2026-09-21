@@ -1,4 +1,4 @@
-"""Behavioral regressions for the Update-6 direct frame streamer."""
+"""Behavioral regressions for the direct checkpoint frame streamer."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def _load_stream_module():
 
 
 def _full_buffer_reference(clips, contexts, overlap):
-    """Reference the superseded assembler's exact linear seam math in-test."""
+    """Reference the expected linear seam math in-test."""
     out = clips[0].clone()
     for i in range(1, len(clips)):
         decoded = clips[i]

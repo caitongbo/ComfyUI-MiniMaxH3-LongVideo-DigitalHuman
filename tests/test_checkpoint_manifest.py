@@ -34,15 +34,15 @@ def test_manifest_records_contiguous_lineage_and_detects_stale_descendants(
     prefix = "digital_human/checkpoints/clip"
     first = Path(module.checkpoint_path(prefix, 1))
     second = Path(module.checkpoint_path(prefix, 2))
-    _write(first, b"clip-one-v1")
+    _write(first, b"clip-one-original")
     module.publish_checkpoint(prefix, 1, str(first), (1, 24, 2, 4, 4),
                               (1, 32, 2, 4))
-    _write(second, b"clip-two-v1")
+    _write(second, b"clip-two-original")
     module.publish_checkpoint(prefix, 2, str(second), (1, 24, 2, 4, 4),
                               (1, 32, 2, 4))
     assert module.validate_checkpoint_set(prefix, [str(first), str(second)])
 
-    _write(first, b"clip-one-v2")
+    _write(first, b"clip-one-replaced")
     module.publish_checkpoint(prefix, 1, str(first), (1, 24, 2, 4, 4),
                               (1, 32, 2, 4))
     with pytest.raises(ValueError, match="Clip 2 is stale"):

@@ -10,6 +10,9 @@ h3_context/
 htmlcov/
 .venv/
 venv/
+build/
+dist/
+*.egg-info/
 .idea/
 .vscode/
 .env
@@ -25,3 +28,16 @@ models/
 *.pt
 *.pth
 *.safetensors
+*.log
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.mp4
+*.mkv
+*.mov
+*.webm
+*.avi
+
+# The single reviewed GitHub demo is allowed; generated videos remain ignored.
+!example_outputs/digital_human_demo.mp4

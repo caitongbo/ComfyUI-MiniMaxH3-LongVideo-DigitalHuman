@@ -609,11 +609,11 @@ def _run_vhs_h264(
     # IMPORTANT: final filename allocation belongs to VHS.  Do not construct a
     # fixed output path in this module: VHS scans the destination directory and
     # advances its numeric counter for repeated runs using the same prefix.
-    # Keeping that responsibility here would risk reintroducing the historical
-    # bug where each run overwrote the previous final video.
+    # Keeping that responsibility here would risk making repeated runs
+    # overwrite the previous final video.
     # Keep the existing H.264 path as the default. ``lossless_ffv1`` is a
-    # sentinel in the existing pix_fmt widget so old workflow widget ordering
-    # and serialized defaults remain unchanged. VHS's built-in FFV1 MKV format
+    # sentinel in the pix_fmt widget so its stable ordering and serialized
+    # defaults remain unchanged. VHS's built-in FFV1 MKV format
     # supplies its own codec defaults; rgb48le keeps our 3-channel H3 frames in
     # 16-bit RGB without introducing an unnecessary alpha plane. FLAC is used
     # for audio by that format.

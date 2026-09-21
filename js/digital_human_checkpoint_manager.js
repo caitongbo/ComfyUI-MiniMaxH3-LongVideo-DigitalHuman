@@ -439,10 +439,8 @@ async function showProjectManager(assembler) {
     ]);
     const clipMap = new Map((status.clips ?? []).map((clip) => [clip.index, clip]));
     const manifestCount = Math.max(0, ...(status.clips ?? []).map((clip) => Number(clip.index) || 0));
-    const planner = graphNodes().find((node) => nodeType(node) === PLANNER);
-    const fallbackCount = Number(widget(planner, "manual_clips")?.value ?? 1);
-    const count = Math.max(1, Math.trunc(Number(
-        assembler.__h3PlannedCount ?? (manifestCount || fallbackCount)
+    const count = Math.max(0, Math.trunc(Number(
+        assembler.__h3PlannedCount ?? manifestCount
     )));
     const ready = Array.from({ length: count }, (_, offset) =>
         clipMap.get(offset + 1)?.ready === true).filter(Boolean).length;
@@ -489,7 +487,7 @@ async function showProjectManager(assembler) {
     const storage = status.storage ?? {};
     const timeline = assembler.__h3TimelinePlan;
     const metrics = element("div", { class: "h3mr-metrics" },
-        element("div", {}, element("b", { text: `${ready}/${count}` }), element("span", { text: " clips ready" })),
+        element("div", {}, element("b", { text: count ? `${ready}/${count}` : "Not planned" }), element("span", { text: " clips ready" })),
         element("div", {}, element("b", { text: timeline ? `${Number(timeline.duration_seconds).toFixed(3)} s` : "auto on run" }), element("span", { text: " master audio" })),
         element("div", {}, element("b", { text: bytes(storage.active_bytes) }), element("span", { text: " active checkpoints" })),
         element("div", {}, element("b", { text: bytes(storage.take_bytes) }), element("span", { text: " retained takes" })),
@@ -498,7 +496,7 @@ async function showProjectManager(assembler) {
         element("div", {}, element("b", { text: timestamp(status.updated_ns) }), element("span", { text: " last update" })),
     );
     const progress = element("div", { class: "h3mr-progress" },
-        element("span", { style: `width:${Math.round(100 * ready / count)}%` }));
+        element("span", { style: `width:${count ? Math.round(100 * ready / count) : 0}%` }));
     const run = element("button", {
         class: "h3mr-primary", text: "Run / Resume / Retry",
         onclick: () => void startManagedRun(assembler),

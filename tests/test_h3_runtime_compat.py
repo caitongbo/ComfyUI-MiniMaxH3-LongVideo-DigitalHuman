@@ -1,4 +1,4 @@
-"""Lazy/native retirement tests for PRs #15972 and #15988."""
+"""Capability-based compatibility tests for upstream H3 runtime changes."""
 import importlib.util
 from pathlib import Path
 import sys
@@ -37,7 +37,7 @@ def audio_mock(monkeypatch):
 
 def test_audio_crop_fix_is_lazy_instance_scoped_and_native_safe(monkeypatch):
     VAE = audio_mock(monkeypatch)
-    m = module_at("u9_audio_compat", ROOT / "h3_audio_vae_compat.py")
+    m = module_at("h3_audio_compat_test", ROOT / "h3_audio_vae_compat.py")
     pcm = torch.arange(437333, dtype=torch.float32).reshape(1, -1, 1)
     old, other, native = VAE(), VAE(), VAE(True)
     assert old.encode(pcm).shape[-1] == 546 and old.origin == 266
@@ -63,14 +63,14 @@ def velocity_mock(monkeypatch, native):
     comfy.model_prefetch = types.SimpleNamespace(malloc_graph_enabled=lambda device: False)
     comfy.patcher_extension = patcher;comfy.ldm = ldm;ldm.minimax = minimax;minimax.model = h3m
     for m in (comfy, ldm, minimax, h3m, patcher):monkeypatch.setitem(sys.modules, m.__name__, m)
-    fixture = module_at("u9_forward_fixture", ROOT / "tests/fixtures/h3_forward_15988.py")
+    fixture = module_at("h3_forward_fixture", ROOT / "tests/fixtures/h3_forward_15988.py")
     h3m.MiniMaxH3Model = fixture.FixedH3 if native else fixture.LegacyH3
     h3m.time_shift_sigma = fixture.time_shift_sigma
     return h3m
 
 
 def test_velocity_patch_matches_upstream_and_retires_natively(monkeypatch):
-    m = module_at("u9_velocity", ROOT / "h3_mask_velocity.py")
+    m = module_at("h3_velocity_test", ROOT / "h3_mask_velocity.py")
     for native in (False, True):
         h3m = velocity_mock(monkeypatch, native)
         before = h3m.MiniMaxH3Model.forward
@@ -86,7 +86,7 @@ def test_velocity_patch_matches_upstream_and_retires_natively(monkeypatch):
 
 def test_native_probe_covers_audio_carry_order(monkeypatch):
     h3m = velocity_mock(monkeypatch, True)
-    m = module_at("u9_velocity_order", ROOT / "h3_mask_velocity.py")
+    m = module_at("h3_velocity_order_test", ROOT / "h3_mask_velocity.py")
     # Multiplication outside native forward doubles the mask and scales the
     # audio carry incorrectly. The behavioral probe must reject it.
     native = h3m.MiniMaxH3Model.forward
@@ -108,6 +108,6 @@ def test_velocity_patch_preserves_malloc_output_copy(monkeypatch):
     prefetch.malloc_graph_enabled = lambda device: True
     prefetch.malloc_graph_begin = lambda *args: calls.append("begin")
     prefetch.malloc_graph_end = lambda: calls.append("end")
-    m = module_at("u9_velocity_malloc", ROOT / "h3_mask_velocity.py")
+    m = module_at("h3_velocity_malloc_test", ROOT / "h3_mask_velocity.py")
     assert m.ensure_h3_mask_velocity()["velocity_ready"]
     assert calls and calls == ["begin", "end"] * (len(calls) // 2)

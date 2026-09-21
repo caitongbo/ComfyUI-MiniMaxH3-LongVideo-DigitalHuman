@@ -341,7 +341,7 @@ class MiniMaxH3DigitalHumanAVContext:
         if start_sample >= waveform_samples:
             raise ValueError(
                 "h3_digital_human_audio: clip starts at %.3fs, at or after the master "
-                "audio endpoint %.3fs; check the automatic timeline or reduce Manual clips"
+                "audio endpoint %.3fs; check the automatic timeline and managed clip index"
                 % (clip_start_seconds, waveform_samples / float(vae_sr))
             )
         audio_slice = waveform[..., start_sample:picture_end_sample]
@@ -369,8 +369,8 @@ class MiniMaxH3DigitalHumanAVContext:
             # window; the checkpoint assembler keeps the untouched master audio
             # and trims the completed video back to its exact duration.  A clip
             # whose *start* is already past the endpoint is rejected above, so
-            # an accidentally excessive Manual clip count cannot manufacture
-            # wholly silent continuation clips.
+            # an invalid managed clip index cannot manufacture wholly silent
+            # continuation clips.
             _LOG.info(
                 "h3_digital_human_audio: final clip extends %.3fs beyond master audio; "
                 "zero-padding conditioning tail (final assembly trims to master)",

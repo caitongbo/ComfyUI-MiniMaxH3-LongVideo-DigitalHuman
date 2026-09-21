@@ -13,8 +13,6 @@ def calculate_audio_timeline(
     sample_rate,
     raw_clip_frames=362,
     context_frames=39,
-    automatic=True,
-    manual_clips=1,
     max_clips=20,
 ):
     samples = int(sample_count)
@@ -39,8 +37,7 @@ def calculate_audio_timeline(
 
     advance = raw - context
     required_frames = int(math.ceil(samples * FPS / rate))
-    automatic_count = 1 + int(math.ceil(max(0, required_frames - raw) / advance))
-    count = automatic_count if bool(automatic) else max(1, int(manual_clips))
+    count = 1 + int(math.ceil(max(0, required_frames - raw) / advance))
     capacity_frames = raw + (limit - 1) * advance
     if count > limit:
         raise ValueError(
@@ -51,7 +48,6 @@ def calculate_audio_timeline(
     coverage_frames = raw + (count - 1) * advance
     return {
         "clip_count": count,
-        "automatic_clip_count": automatic_count,
         "duration_seconds": samples / float(rate),
         "coverage_seconds": coverage_frames / FPS,
         "raw_clip_frames": raw,

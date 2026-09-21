@@ -12,13 +12,13 @@
 
 ## 连续性与清晰度
 
-续段从 manifest 验证 Clip N-1 后直接读取已采样 AV latent，而不是依赖静态前驱图或解码后的 RGB。视觉保护 mask 保留上下文，音频使用对应的绝对时间片。Clip 1 自动跳过漂移控制的前驱 mask；Clip 2+ 才启用动态前缀控制。默认不做最终 RGB crossfade，避免每个接缝产生二次模糊。
+唯一母版参考图同时定义身份、服装、人物比例、构图、背景与灯光；同一个 IMAGE 输出连接到 R2V 的 `ref_image_0` 与 `ref_image_1`，在不引入第二份可能冲突素材的前提下重复强化视觉锚点。续段从 manifest 验证 Clip N-1 后直接读取已采样 AV latent，而不是依赖静态前驱图或解码后的 RGB。视觉保护 mask 将继承上下文完全冻结，音频使用对应的绝对时间片。继承前缀不重新加噪，最终装配默认不做 RGB crossfade，避免每个接缝产生二次模糊。
 
 ## Checkpoint 协议
 
 每个 clip 独立写入 safetensors。manifest 记录 clip 状态、工作流指纹、take、shape 与 SHA-256。文件先写临时路径，校验后原子发布。后续 clip 依赖前段 lineage；上游变化会使受影响的后继段 stale。
 
-当前唯一接受的格式为 `h3_digital_human_checkpoint_manifest`。旧格式不会自动读取、迁移或重用。
+manifest 格式为 `h3_digital_human_checkpoint_manifest`。
 
 ## 最终装配
 

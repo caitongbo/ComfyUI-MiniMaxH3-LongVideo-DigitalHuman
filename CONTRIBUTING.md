@@ -10,8 +10,9 @@ and low-memory assembly path.
 - Reproduce with the bundled workflow before testing a modified graph.
 - Do not attach model weights, private media, API keys, or checkpoint files.
 - For generation failures, include the complete traceback, ComfyUI commit,
-  operating system, Python/PyTorch versions, GPU/VRAM, model filenames, timeline
-  mode, planned clip count, and the first relevant `h3_digital_human` log lines.
+  operating system, Python/PyTorch versions, GPU/VRAM, model filenames, master
+  audio duration, planned clip count, timeline frame settings, and the first
+  relevant `h3_digital_human` log lines.
 - Report vulnerabilities according to [SECURITY.md](SECURITY.md), not in a public issue.
 
 ## Development checks

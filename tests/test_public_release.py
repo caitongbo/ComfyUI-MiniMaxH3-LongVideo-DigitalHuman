@@ -22,8 +22,11 @@ def _strings(value):
 def test_publication_metadata_and_community_files_are_present():
     required = {
         "README.md", "README_EN.md", "LICENSE", "NOTICE.md", "CHANGELOG.md",
-        "CONTRIBUTING.md", "SECURITY.md", "RELEASING.md", "pyproject.toml", ".gitattributes",
-        ".editorconfig", ".github/pull_request_template.md",
+        "CONTRIBUTING.md", "SECURITY.md", "docs/README.md",
+        "docs/RELEASING.md", "docs/TECHNICAL_ARCHITECTURE.md",
+        "docs/WORKFLOW_PREREQUISITES.md", "example_outputs/README.md",
+        "pyproject.toml", ".gitattributes",
+        ".editorconfig", ".comfyignore", ".github/pull_request_template.md",
         ".github/CODEOWNERS", ".github/dependabot.yml",
         ".github/ISSUE_TEMPLATE/bug_report.yml",
         ".github/ISSUE_TEMPLATE/feature_request.yml",
@@ -31,10 +34,15 @@ def test_publication_metadata_and_community_files_are_present():
     }
     assert not {name for name in required if not (ROOT / name).is_file()}
     metadata = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert 'name = "comfyui-minimaxh3-longvideo-digitalhuman"' in metadata
+    assert 'name = "minimaxh3-longvideo-digitalhuman"' in metadata
     assert 'version = "1.0.0"' in metadata
     assert 'PublisherId = "caitongbo"' in metadata
-    assert 'web = "js"' in metadata
+    assert 'requires-python = ">=3.10"' in metadata
+    assert 'keywords = ["comfyui", "minimax-h3"' in metadata
+    comfyignore = (ROOT / ".comfyignore").read_text(encoding="utf-8")
+    for development_path in (".github/", "tests/", "requirements-test.txt", "pytest.ini"):
+        assert development_path in comfyignore
+    assert "example_outputs/*.mp4" in comfyignore
     package = ast.parse((ROOT / "__init__.py").read_text(encoding="utf-8"))
     version = next(
         node.value.value for node in package.body
@@ -74,29 +82,100 @@ def test_relative_markdown_links_resolve():
 
 
 def test_release_tree_does_not_include_models_checkpoints_or_secret_files():
+    allowed_showcase = {"example_outputs/digital_human_demo.mp4"}
     forbidden_names = {".env", "id_rsa", "id_ed25519"}
-    forbidden_suffixes = {".ckpt", ".pt", ".pth", ".safetensors"}
+    forbidden_suffixes = {
+        ".ckpt", ".pt", ".pth", ".safetensors",
+        ".log", ".zip", ".7z", ".mp4", ".mkv", ".mov", ".webm", ".avi",
+    }
     bad = []
     for path in ROOT.rglob("*"):
         if not path.is_file() or ".git" in path.parts:
             continue
-        if path.name in forbidden_names or path.suffix.lower() in forbidden_suffixes:
-            bad.append(path.relative_to(ROOT).as_posix())
+        relative = path.relative_to(ROOT).as_posix()
+        if (path.name in forbidden_names or path.suffix.lower() in forbidden_suffixes) \
+                and relative not in allowed_showcase:
+            bad.append(relative)
     assert not bad
+    demo = ROOT / "example_outputs" / "digital_human_demo.mp4"
+    if demo.exists():
+        assert demo.stat().st_size <= 50 * 1024 * 1024
+        with demo.open("rb") as handle:
+            assert handle.read(12)[4:8] == b"ftyp"
 
 
-def test_release_tree_contains_no_retired_runtime_families_or_stubs():
-    retired = {
-        "existing_video_extension.py",
-        "h3_auto_crop32.py",
-        "h3_mask_precision.py",
-        "h3_masked_bridge.py",
-        "h3_v2v_fractional.py",
-        "h3_workflow_utilities.py",
-        "js/digital_human_video_preview.js",
+def test_release_tree_contains_only_supported_root_runtime_modules():
+    expected = {
+        "__init__.py", "checkpoint_manifest.py", "checkpoint_routes.py",
+        "h3_audio_grid.py", "h3_audio_vae_compat.py", "h3_compat.py",
+        "h3_digital_human_audio_context.py", "h3_mask_compat.py",
+        "h3_mask_payload_compat.py", "h3_mask_velocity.py",
+        "h3_media_utils.py", "h3_streaming_vhs.py", "h3_timeline.py",
+        "h3_timing.py", "nodes.py",
     }
-    assert not {name for name in retired if (ROOT / name).exists()}
+    assert {path.name for path in ROOT.glob("*.py")} == expected
     assert sorted(path.name for path in (ROOT / "js").glob("*.js")) == [
         "digital_human_checkpoint_manager.js",
         "digital_human_fixed_fps.js",
     ]
+
+
+def test_public_docs_describe_only_the_current_release():
+    documents = [
+        ROOT / "README.md", ROOT / "README_EN.md",
+        ROOT / "docs" / "WORKFLOW_PREREQUISITES.md",
+        ROOT / "example_workflows" / "README.md",
+        ROOT / "CONTRIBUTING.md",
+        ROOT / ".github" / "ISSUE_TEMPLATE" / "bug_report.yml",
+    ]
+    text = "\n".join(path.read_text(encoding="utf-8") for path in documents)
+    assert "Auto from Audio" not in text
+    assert "manual_clips" not in text
+    assert "timeline mode" not in text.lower()
+    assert "Upgrading from" not in text
+
+
+def test_initial_release_metadata_has_no_internal_schema_labels():
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## [1.0.0]" in changelog
+    assert "## [2." not in changelog
+    workflow = json.loads(
+        (ROOT / "example_workflows" / "MiniMaxH3 - Long Video Digital Human.json")
+        .read_text(encoding="utf-8")
+    )
+    assert workflow["revision"] == 1
+    properties = [node.get("properties", {}) for node in workflow["nodes"]]
+    assert not [value for props in properties for value in props.values()
+                if isinstance(value, str) and re.search(r"-v\d+$", value)]
+
+
+def test_bilingual_readmes_keep_matching_structure_and_release_facts():
+    chinese = (ROOT / "README.md").read_text(encoding="utf-8")
+    english = (ROOT / "README_EN.md").read_text(encoding="utf-8")
+    section_pairs = [
+        ("## 核心能力", "## Core capabilities"),
+        ("## 工作流", "## Workflow"),
+        ("## 依赖与安装", "## Requirements and installation"),
+        ("## 正确使用方法", "## Correct usage"),
+        ("## Checkpoint 与恢复", "## Checkpoints and recovery"),
+        ("## 画质建议", "## Quality guidance"),
+        ("## 测试", "## Testing"),
+        ("## 已知限制", "## Known limitations"),
+        ("## 许可证与代码来源", "## License and source attribution"),
+    ]
+    assert [chinese.index(zh) for zh, _ in section_pairs] == sorted(
+        chinese.index(zh) for zh, _ in section_pairs
+    )
+    assert [english.index(en) for _, en in section_pairs] == sorted(
+        english.index(en) for _, en in section_pairs
+    )
+    assert "[English](README_EN.md)" in chinese
+    assert "[简体中文](README.md)" in english
+    for fact in (
+        "simple / 8", "LoRA strength 1.0", "54.336", "362", "39",
+        "13.458", "h3_digital_human_checkpoint_manifest",
+        "Run/resume checkpoints → assemble", "video_overlap_frames = 0",
+        "270.8", "GPL-3.0-only",
+    ):
+        assert fact in chinese
+        assert fact in english

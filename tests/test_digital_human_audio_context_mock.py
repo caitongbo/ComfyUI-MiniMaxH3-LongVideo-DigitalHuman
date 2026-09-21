@@ -286,7 +286,7 @@ def test_audio_clip_start_at_master_endpoint_rejects_excess_active_clips():
             source_fps=24.0, crop="disabled", vae=None, source_frames=None,
         )
     except ValueError as exc:
-        assert "reduce Manual clips" in str(exc)
+        assert "managed clip index" in str(exc)
     else:
         raise AssertionError("a wholly post-audio clip was accepted")
 
