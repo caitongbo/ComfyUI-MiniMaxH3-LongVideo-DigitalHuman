@@ -1,5 +1,5 @@
 # CPU/static regression dependencies; production dependencies come from ComfyUI.
 torch>=2.4,<3
-numpy>=1.26,<3
+numpy>=2.2.6,<3
 safetensors>=0.4,<1
 pytest>=8,<10
