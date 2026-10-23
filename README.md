@@ -6,7 +6,7 @@ An audio-driven workflow for digital human lip synchronization and long-form vid
 
 Generate digital human videos from **input audio and a reference image**, with support for segmented long-audio generation, checkpoint-based resume, clip preview, and video assembly.
 
-[简体中文](README.md) · [English](README_EN.md)
+[English](README.md) · [简体中文](README.zh-CN.md)
 
 ## Preview
 
