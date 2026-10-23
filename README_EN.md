@@ -41,6 +41,12 @@ preview, checkpoint preview assembly, and final export. After restarting
 ComfyUI, reopen this workflow to resume generation or assemble verified
 checkpoints directly.
 
+### Workflow Preview
+
+The main workflow integrates sequential clip generation, checkpoint-based recovery, per-clip preview, and final video export.
+
+![MiniMax H3 Long Video Digital Human Workflow](docs/workflow-overview.png)
+
 See [Demo video](example_outputs/README.md) for the generated example and file
 requirements. The showcase is stored at
 `example_outputs/digital_human_demo.mp4` and excluded from the Comfy Registry
