@@ -27,6 +27,12 @@
 是唯一工作流，覆盖生成、恢复、单段预览、checkpoint 预览装配和最终导出。ComfyUI
 重启后重新打开该工作流，即可继续生成或直接装配已有 checkpoint。
 
+### 工作流预览
+
+主工作流集成连续 Clip 生成、Checkpoint 断点恢复、单段预览与最终视频导出。
+
+![MiniMax H3 Long Video Digital Human Workflow](docs/workflow-overview.png)
+
 生成示例与文件要求见 [演示视频说明](example_outputs/README.md)。演示成片位于
 `example_outputs/digital_human_demo.mp4`；该展示文件不会进入 Comfy Registry 安装包。
 
