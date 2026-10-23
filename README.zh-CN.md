@@ -6,7 +6,7 @@
 
 使用**输入音频和人物参考图**驱动 MiniMax H3 生成数字人视频，支持长音频分段生成、断点续跑、片段预览与视频装配。
 
-[简体中文](README.md) · [English](README_EN.md) 
+[English](README.md) · [简体中文](README.zh-CN.md)
 
 ## 效果展示
 
