@@ -1,0 +1,2146 @@
+{
+  "id": "76b5f713-5824-40ae-a2b7-f02ad62c256c",
+  "revision": 1,
+  "last_node_id": 2601,
+  "last_link_id": 1622,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [
+        -2520,
+        580
+      ],
+      "size": [
+        330,
+        70
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            1490
+          ]
+        }
+      ],
+      "title": "BASE — Load Audio VAE",
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      }
+    },
+    {
+      "id": 210,
+      "type": "RandomNoise",
+      "pos": [
+        1650,
+        -730
+      ],
+      "size": [
+        286.007421875,
+        90
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise_seed",
+          "type": "INT",
+          "widget": {
+            "name": "noise_seed"
+          },
+          "link": 1597
+        }
+      ],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            36
+          ]
+        }
+      ],
+      "title": "CLIP NOISE — managed shared seed",
+      "properties": {
+        "Node name for S&R": "RandomNoise",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        514005817509111,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "noise_seed": 514005817509111,
+        "control_after_generate": "fixed"
+      }
+    },
+    {
+      "id": 973,
+      "type": "KSamplerSelect",
+      "pos": [
+        -600,
+        460
+      ],
+      "size": [
+        300.1692791748046,
+        71.77463958740236
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            38
+          ]
+        }
+      ],
+      "title": "BASE SAMPLER — Euler",
+      "properties": {
+        "Node name for S&R": "KSamplerSelect",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "euler"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "euler"
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 101,
+      "type": "PrimitiveFloat",
+      "pos": [
+        -2100,
+        790
+      ],
+      "size": [
+        305.3941833496091,
+        71.43464898681623
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "title": "RAW CLIP DURATION — 15 seconds",
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        15
+      ],
+      "widgets_values_named": {
+        "value": 15
+      },
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 1732,
+      "type": "Note",
+      "pos": [
+        -2550,
+        -1030
+      ],
+      "size": [
+        850,
+        650
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "# MINIMAX H3 — ONE REUSABLE DIGITAL-HUMAN PROMPT\n\nWrite one production-ready English REF2VA prompt for the entire long-form presenter video. The same prompt is reused for every automatically scheduled Clip.\n\nREFERENCE WIRING\n- Upload only one approved medium-shot master image.\n- The workflow sends that same IMAGE output to both <Picture 1> and <Picture 2>; do not replace either path with a different image.\n- <Picture 1>: facial and personal identity authority. Explicitly forbid close-up crop leakage, portrait inserts, duplicated heads, collages, and a second person.\n- <Picture 2>: wardrobe, body proportions, subject scale, framing, composition, background, and lighting authority.\n- <Audio 1>: authoritative narration timing, phonemes, mouth/jaw motion, breathing, and expression timing.\n\nCONTINUITY RULES\n- State that both Picture slots contain the same master and describe one person in one scene.\n- Preserve identity, wardrobe, accessories, subject scale, framing, lighting, camera, background geometry, and objects for the full timeline.\n- Clip 1 establishes the shot. Later Clips inherit a protected verified latent tail and must continue its exact pose, gesture, expression, and camera state.\n- Do not reset the scene, change clothing, reframe, zoom, add objects, add speech, paraphrase narration, or invent audio.\n- Use restrained context-aware presenter gestures and keep the mouth readable.\n- Describe persistent attributes, not Clip-specific events or timestamps, because this one prompt drives every Clip.\n\nUse clear REF2VA sections: subject_definitions, program_style, summary, retention_analysis, detailed_description, overall_soundscape, and non_diegetic_audio. Return exactly one complete prompt."
+      ],
+      "widgets_values_named": {
+        "text": "# MINIMAX H3 — ONE REUSABLE DIGITAL-HUMAN PROMPT\n\nWrite one production-ready English REF2VA prompt for the entire long-form presenter video. The same prompt is reused for every automatically scheduled Clip.\n\nREFERENCE WIRING\n- Upload only one approved medium-shot master image.\n- The workflow sends that same IMAGE output to both <Picture 1> and <Picture 2>; do not replace either path with a different image.\n- <Picture 1>: facial and personal identity authority. Explicitly forbid close-up crop leakage, portrait inserts, duplicated heads, collages, and a second person.\n- <Picture 2>: wardrobe, body proportions, subject scale, framing, composition, background, and lighting authority.\n- <Audio 1>: authoritative narration timing, phonemes, mouth/jaw motion, breathing, and expression timing.\n\nCONTINUITY RULES\n- State that both Picture slots contain the same master and describe one person in one scene.\n- Preserve identity, wardrobe, accessories, subject scale, framing, lighting, camera, background geometry, and objects for the full timeline.\n- Clip 1 establishes the shot. Later Clips inherit a protected verified latent tail and must continue its exact pose, gesture, expression, and camera state.\n- Do not reset the scene, change clothing, reframe, zoom, add objects, add speech, paraphrase narration, or invent audio.\n- Use restrained context-aware presenter gestures and keep the mouth readable.\n- Describe persistent attributes, not Clip-specific events or timestamps, because this one prompt drives every Clip.\n\nUse clear REF2VA sections: subject_definitions, program_style, summary, retention_analysis, detailed_description, overall_soundscape, and non_diegetic_audio. Return exactly one complete prompt."
+      },
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 900,
+      "type": "Note",
+      "pos": [
+        -2550,
+        -1500
+      ],
+      "size": [
+        850,
+        390
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "WF Guide\n\n1. Select the master audio and one master reference image.\n2. Write one prompt in the reusable MiniMax H3 Reference to Video node.\n3. The timeline automatically calculates the required Clip count from decoded audio; no manual Clip count is needed.\n4. Click Run/resume checkpoints → assemble on DIGITAL HUMAN PROJECT.\n\nThe planner measures decoded audio, computes the required Clip count, and queues this same generation pipeline once per Clip. Every Clip remains an independent checkpoint job; models are released between jobs. Do not queue the full graph."
+      ],
+      "widgets_values_named": {
+        "text": "WF Guide\n\n1. Select the master audio and one master reference image.\n2. Write one prompt in the reusable MiniMax H3 Reference to Video node.\n3. The timeline automatically calculates the required Clip count from decoded audio; no manual Clip count is needed.\n4. Click Run/resume checkpoints → assemble on DIGITAL HUMAN PROJECT.\n\nThe planner measures decoded audio, computes the required Clip count, and queues this same generation pipeline once per Clip. Every Clip remains an independent checkpoint job; models are released between jobs. Do not queue the full graph."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "pos": [
+        -2520,
+        320
+      ],
+      "size": [
+        330,
+        110
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "title": "BASE — Load CLIP",
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        -2520,
+        470
+      ],
+      "size": [
+        330,
+        70
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            25,
+            1108,
+            1511
+          ]
+        }
+      ],
+      "title": "BASE — Load Video VAE",
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 100,
+      "type": "ResolutionSelector",
+      "pos": [
+        -2520,
+        760
+      ],
+      "size": [
+        360,
+        160
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            26
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            27
+          ]
+        }
+      ],
+      "title": "BASE RESOLUTION — portrait output",
+      "properties": {
+        "Node name for S&R": "ResolutionSelector",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "9:16 (Portrait Widescreen)",
+        0.7,
+        32
+      ],
+      "widgets_values_named": {
+        "aspect_ratio": "9:16 (Portrait Widescreen)",
+        "megapixels": 0.7,
+        "multiple": 32
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        -2520,
+        160
+      ],
+      "size": [
+        330,
+        90
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            821
+          ]
+        }
+      ],
+      "title": "BASE — Load Diffusion Model",
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 1733,
+      "type": "PrimitiveInt",
+      "pos": [
+        -1250,
+        780
+      ],
+      "size": [
+        300,
+        82
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            646
+          ]
+        }
+      ],
+      "title": "VISUAL CONTEXT — 39 frames",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        39,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "value": 39,
+        "fixed": "fixed"
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 2510,
+      "type": "MiniMaxH3AudioVAECompatibility",
+      "pos": [
+        -2120,
+        570
+      ],
+      "size": [
+        330,
+        90
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 1490
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "links": [
+            184,
+            1246
+          ]
+        }
+      ],
+      "title": "BASE AUDIO VAE — H3 compatibility",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3AudioVAECompatibility",
+        "h3_fixed_fps": true
+      }
+    },
+    {
+      "id": 102,
+      "type": "ComfyMathExpression",
+      "pos": [
+        -1700,
+        750
+      ],
+      "size": [
+        350,
+        150
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "values.a",
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 1
+        },
+        {
+          "name": "values.b",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            28,
+            647,
+            1610
+          ]
+        },
+        {
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "title": "H3 FRAME GRID — duration → valid frames",
+      "properties": {
+        "Node name for S&R": "ComfyMathExpression",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+      ],
+      "widgets_values_named": {
+        "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+      }
+    },
+    {
+      "id": 1753,
+      "type": "ComfyMathExpression",
+      "pos": [
+        -850,
+        750
+      ],
+      "size": [
+        353.39609375,
+        150
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "values.a",
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 646
+        },
+        {
+          "name": "values.b",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 647
+        },
+        {
+          "name": "values.c",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            1250,
+            1611,
+            1615
+          ]
+        },
+        {
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "title": "H3 CONTEXT GRID — safe aligned overlap",
+      "properties": {
+        "Node name for S&R": "ComfyMathExpression",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "max(5, min(a, (b - (b % 2)) / 2)) - ((max(5, min(a, (b - (b % 2)) / 2)) - 5) % 17)"
+      ],
+      "widgets_values_named": {
+        "expression": "max(5, min(a, (b - (b % 2)) / 2)) - ((max(5, min(a, (b - (b % 2)) / 2)) - 5) % 17)"
+      }
+    },
+    {
+      "id": 123,
+      "type": "BasicScheduler",
+      "pos": [
+        -600,
+        300
+      ],
+      "size": [
+        325.464453125,
+        110
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 13
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": 256
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            40
+          ]
+        }
+      ],
+      "title": "BASE SCHEDULER — simple / 8 / denoise 1",
+      "properties": {
+        "Node name for S&R": "BasicScheduler",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "simple",
+        8,
+        1
+      ],
+      "widgets_values_named": {
+        "scheduler": "simple",
+        "steps": 8,
+        "denoise": 1
+      }
+    },
+    {
+      "id": 211,
+      "type": "BasicGuider",
+      "pos": [
+        1990,
+        -550
+      ],
+      "size": [
+        310.603125,
+        70
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1516
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 655
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            37
+          ]
+        }
+      ],
+      "title": "CLIP GUIDER — shared R2V conditioning",
+      "properties": {
+        "Node name for S&R": "BasicGuider",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      }
+    },
+    {
+      "id": 201,
+      "type": "MiniMaxH3DigitalHumanAVContext",
+      "pos": [
+        940,
+        -700
+      ],
+      "size": [
+        610,
+        210
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 1245
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 1246
+        },
+        {
+          "name": "master_audio",
+          "type": "AUDIO",
+          "link": 1247
+        },
+        {
+          "name": "clip_index",
+          "type": "INT",
+          "widget": {
+            "name": "clip_index"
+          },
+          "link": 1612
+        },
+        {
+          "name": "context_length",
+          "type": "INT",
+          "widget": {
+            "name": "context_length"
+          },
+          "link": 1250
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            656
+          ]
+        },
+        {
+          "name": "trim_frames",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "clip_audio",
+          "type": "AUDIO",
+          "links": []
+        }
+      ],
+      "title": "Reusable Clip — Master Audio + Verified Predecessor",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3DigitalHumanAVContext",
+        "aux_id": "caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman",
+        "ver": "4b484a3e1c7ddc045771042dcdb8b60529f127ff",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "h3_digital_human/checkpoints/clip",
+        1,
+        39,
+        24,
+        "disabled"
+      ],
+      "widgets_values_named": {
+        "checkpoint_prefix": "h3_digital_human/checkpoints/clip",
+        "clip_index": 1,
+        "context_length": 39,
+        "source_fps": 24,
+        "crop": "disabled"
+      },
+      "color": "#1f1f48",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 214,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        2340,
+        -620
+      ],
+      "size": [
+        342.773046875,
+        190
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 36
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 37
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 38
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 40
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 656
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            1492
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "title": "Reusable Clip — Native Turbo 8-step Sampler",
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      }
+    },
+    {
+      "id": 2294,
+      "type": "VAEDecode",
+      "pos": [
+        3310,
+        -520
+      ],
+      "size": [
+        340,
+        70
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 1360
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 1108
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1111
+          ]
+        }
+      ],
+      "title": "CURRENT CLIP — Video VAE decode",
+      "properties": {
+        "Node name for S&R": "VAEDecode",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "h3_fixed_fps": true
+      }
+    },
+    {
+      "id": 2296,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        3710,
+        -700
+      ],
+      "size": [
+        330,
+        334
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1111
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 1618
+        },
+        {
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": []
+        }
+      ],
+      "title": "Current Managed Clip — VHS Preview",
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine",
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "1.7.7",
+        "h3_fixed_fps": true,
+        "h3_digital_human_role": "current_clip_preview"
+      },
+      "widgets_values": {
+        "frame_rate": 24,
+        "loop_count": 0,
+        "filename_prefix": "h3_preview/digital_human_current_clip",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": false,
+        "trim_to_audio": true,
+        "pingpong": false,
+        "save_output": false,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      },
+      "widgets_values_named": {
+        "frame_rate": 24,
+        "loop_count": 0,
+        "filename_prefix": "h3_preview/digital_human_current_clip",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": false,
+        "trim_to_audio": true,
+        "pingpong": false,
+        "save_output": false,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      }
+    },
+    {
+      "id": 2512,
+      "type": "MiniMaxH3CheckpointResume",
+      "pos": [
+        2740,
+        -570
+      ],
+      "size": [
+        390,
+        150
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 1492
+        },
+        {
+          "name": "clip_index",
+          "type": "INT",
+          "widget": {
+            "name": "clip_index"
+          },
+          "link": 1613
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            1360
+          ]
+        },
+        {
+          "name": "checkpoint_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Reusable Clip — Atomic Checkpoint Gate",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3CheckpointResume",
+        "aux_id": "caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman",
+        "ver": "checkpoint-resume",
+        "h3_digital_human_role": "reusable_checkpoint_gate"
+      },
+      "widgets_values": [
+        "h3_digital_human/checkpoints/clip",
+        1,
+        true
+      ],
+      "widgets_values_named": {
+        "checkpoint_prefix": "h3_digital_human/checkpoints/clip",
+        "clip_index": 1,
+        "reuse_checkpoint": true
+      },
+      "color": "#29324a",
+      "bgcolor": "#1b2235"
+    },
+    {
+      "id": 2551,
+      "type": "PrimitiveInt",
+      "pos": [
+        -1400,
+        420
+      ],
+      "size": [
+        570,
+        100
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            1597
+          ]
+        }
+      ],
+      "title": "BASE SEED — fixed and shared across clips",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        514005817509111,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "value": 514005817509111,
+        "fixed": "fixed"
+      },
+      "color": "#304a3a",
+      "bgcolor": "#203126"
+    },
+    {
+      "id": 2600,
+      "type": "MiniMaxH3AudioTimelinePlan",
+      "pos": [
+        -720,
+        -680
+      ],
+      "size": [
+        520,
+        250
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "master_audio",
+          "type": "AUDIO",
+          "link": 1609
+        },
+        {
+          "name": "raw_clip_frames",
+          "type": "INT",
+          "widget": {
+            "name": "raw_clip_frames"
+          },
+          "link": 1610
+        },
+        {
+          "name": "context_frames",
+          "type": "INT",
+          "widget": {
+            "name": "context_frames"
+          },
+          "link": 1611
+        },
+        {
+          "name": "clip_index",
+          "type": "INT",
+          "widget": {
+            "name": "clip_index"
+          },
+          "link": 1617
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clip_count",
+          "type": "INT",
+          "links": [
+            1614
+          ]
+        },
+        {
+          "name": "clip_audio",
+          "type": "AUDIO",
+          "links": [
+            1618
+          ]
+        }
+      ],
+      "title": "AUTO TIMELINE — decoded audio duration → clip count",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3AudioTimelinePlan",
+        "aux_id": "caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman",
+        "h3_digital_human_role": "audio_timeline_planner",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        362,
+        39,
+        1
+      ],
+      "widgets_values_named": {
+        "raw_clip_frames": 362,
+        "context_frames": 39,
+        "clip_index": 1
+      },
+      "color": "#29483a",
+      "bgcolor": "#1b3027"
+    },
+    {
+      "id": 2601,
+      "type": "PrimitiveInt",
+      "pos": [
+        -720,
+        -330
+      ],
+      "size": [
+        441.7916015625,
+        82
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            1612,
+            1613,
+            1617
+          ]
+        }
+      ],
+      "title": "CURRENT CLIP INDEX — managed automatically; do not edit",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "h3_digital_human_role": "h3_digital_human_current_clip",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        4,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "value": 4,
+        "fixed": "fixed"
+      },
+      "color": "#4a3921",
+      "bgcolor": "#342919"
+    },
+    {
+      "id": 200,
+      "type": "MiniMaxH3ReferenceToVideo",
+      "pos": [
+        300,
+        -760
+      ],
+      "size": [
+        520,
+        424
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 24
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 25
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 184
+        },
+        {
+          "label": "ref_image_0",
+          "name": "ref_images.ref_image_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 185
+        },
+        {
+          "name": "ref_images.ref_image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 1619
+        },
+        {
+          "name": "ref_images.ref_image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_video_0",
+          "name": "ref_videos.ref_video_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_video_audio_0",
+          "name": "ref_video_audios.ref_video_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "label": "ref_audio_0",
+          "name": "ref_audios.ref_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 26
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 27
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "widget": {
+            "name": "length"
+          },
+          "link": 28
+        },
+        {
+          "name": "ref_images.ref_image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "ref_images.ref_image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_audio_1",
+          "name": "ref_audios.ref_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            655
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            1245
+          ]
+        }
+      ],
+      "title": "Reusable Clip — MiniMax H3 Reference to Video",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ReferenceToVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "subject_definitions:\n\n<Subject 1> is the same policy presenter defined jointly by <Picture 1> and <Picture 2>.\n\n<Picture 1> has priority for facial identity, facial structure, hairstyle, age appearance, skin appearance, and personal identity.\n\n<Picture 2> has priority for full-body appearance, wardrobe, body proportions, presenter posture, and professional studio environment.\n\n<Audio 1> is the protected narration audio track for this clip.\n\n<Audio 1> is the only source of speech timing.\n\n<Audio 1> controls:\n- phoneme timing\n- lip synchronization\n- mouth movement\n- jaw movement\n- facial expression timing\n- breathing rhythm\n\nThe same <Subject 1> identity must be preserved throughout all clips.\n\nDo not change:\n- facial identity\n- gender appearance\n- age appearance\n- hairstyle\n- clothing\n- accessories\n- body proportions\n- studio environment\n\n\nprogram_style:\n\nHuishan Talent Group \"Policy Interpretation\" is a professional government information program.\n\nThe visual style is:\n\n- professional broadcast news style\n- realistic human presentation\n- trustworthy\n- authoritative\n- clear\n- friendly\n\nThe presenter behaves like a professional television news host explaining public policy information.\n\nAvoid:\n- advertising style\n- cinematic style\n- exaggerated performance\n- dramatic expressions\n\n\nsummary:\n\n[reference generation]\n\nGenerate a professional policy interpretation video for Huishan Talent Group.\n\n<Subject 1> explains policy information using the protected narration audio.\n\nThe presenter maintains a calm, professional, and approachable broadcast presentation style.\n\nThe video should look like a high-quality government media program.\n\n\nretention_analysis:\n\n<Subject 1>:\n\nfully_preserved -\n\nPreserve the exact presenter identity defined by <Picture 1> and <Picture 2>.\n\nMaintain:\n\n- identical face\n- identical hairstyle\n- identical clothing\n- identical body proportions\n- identical studio environment\n- identical lighting style\n\nOnly allow:\n\n- natural mouth movement\n- natural blinking\n- subtle facial expression changes\n- context-aware presenter gestures\n\n\nCamera:\n\nfully_preserved -\n\nPreserve:\n\n- camera position\n- camera height\n- focal length\n- perspective\n- framing\n- composition\n\nThe camera setup remains identical throughout the clip.\n\nNo:\n\n- camera drift\n- reframing\n- zoom\n- push in\n- pull out\n- pan\n- tilt\n\n\n<Audio 1>:\n\nfully_preserved -\n\nThe spoken audio must be followed exactly.\n\nDo not:\n\n- add extra words\n- remove words\n- modify spoken content\n- generate additional speech\n\n\ndetailed_description:\n\nThe target video is a realistic professional government policy interpretation program.\n\nThe video uses a vertical 9:16 locked-off broadcast composition.\n\n[Shot 1]\n\nA static medium shot captured by a fixed tripod camera.\n\nThe camera position, camera height, focal length, perspective, and framing remain unchanged throughout the entire clip.\n\nThe camera does not move.\n\nNo zoom.\nNo push in.\nNo pull out.\nNo pan.\nNo tilt.\nNo reframing.\n\n<Subject 1> appears in the professional studio environment defined by <Picture 2>.\n\nThe presenter remains at the same distance from the camera throughout the entire shot.\n\nThe presenter maintains the exact composition defined by the reference image.\n\nThe lighting remains consistent with <Picture 2>.\n\nThe presenter maintains direct eye contact with the camera.\n\nThe presenter has a calm, friendly, and trustworthy expression.\n\nThe presenter maintains a professional broadcast posture.\n\n\nThe presenter uses natural, context-aware hand gestures that match the spoken content.\n\nThe gestures follow the meaning and rhythm of the narration naturally, similar to a professional television presenter.\n\nThe gestures should emphasize important policy points when appropriate.\n\nHand movements are subtle, controlled, and professional.\n\nAvoid exaggerated arm movements or dramatic gestures.\n\nThe presenter remains within the original camera framing.\n\n\nThe presenter speaks naturally.\n\nThe mouth movement, jaw movement, and facial expression timing must accurately follow the phoneme sequence of <Audio 1>.\n\nThe presenter does not add any extra speech or sound.\n\nDo not summarize, paraphrase, or modify the spoken content.\n\n\nFor continuation clips:\n\nContinue the exact previous frame state.\n\nThe first frame must seamlessly continue from the previous clip ending.\n\nPreserve:\n\n- same facial position\n- same body position\n- same camera framing\n- same camera perspective\n- same clothing\n- same lighting\n- same studio environment\n\nThe camera remains locked in the same static shot.\n\nThe presenter continues the natural speaking motion and context-aware gestures from the previous clip.\n\nNo visual reset.\n\nNo scene transition.\n\n\noverall_soundscape:\n\n<Audio 1> is the protected narration audio.\n\nThe narration is clear and isolated.\n\nNo additional voice.\n\nNo environmental speech.\n\n\nnon_diegetic_music:\n\nNo background music.\n\n<Audio 1> is the only audio source.\n\n<Audio 1> drives:\n\n- lip synchronization\n- mouth movement\n- facial expression timing\n- speaking rhythm",
+        960,
+        544,
+        362,
+        "match"
+      ],
+      "widgets_values_named": {
+        "prompt": "subject_definitions:\n\n<Subject 1> is the same policy presenter defined jointly by <Picture 1> and <Picture 2>.\n\n<Picture 1> has priority for facial identity, facial structure, hairstyle, age appearance, skin appearance, and personal identity.\n\n<Picture 2> has priority for full-body appearance, wardrobe, body proportions, presenter posture, and professional studio environment.\n\n<Audio 1> is the protected narration audio track for this clip.\n\n<Audio 1> is the only source of speech timing.\n\n<Audio 1> controls:\n- phoneme timing\n- lip synchronization\n- mouth movement\n- jaw movement\n- facial expression timing\n- breathing rhythm\n\nThe same <Subject 1> identity must be preserved throughout all clips.\n\nDo not change:\n- facial identity\n- gender appearance\n- age appearance\n- hairstyle\n- clothing\n- accessories\n- body proportions\n- studio environment\n\n\nprogram_style:\n\nHuishan Talent Group \"Policy Interpretation\" is a professional government information program.\n\nThe visual style is:\n\n- professional broadcast news style\n- realistic human presentation\n- trustworthy\n- authoritative\n- clear\n- friendly\n\nThe presenter behaves like a professional television news host explaining public policy information.\n\nAvoid:\n- advertising style\n- cinematic style\n- exaggerated performance\n- dramatic expressions\n\n\nsummary:\n\n[reference generation]\n\nGenerate a professional policy interpretation video for Huishan Talent Group.\n\n<Subject 1> explains policy information using the protected narration audio.\n\nThe presenter maintains a calm, professional, and approachable broadcast presentation style.\n\nThe video should look like a high-quality government media program.\n\n\nretention_analysis:\n\n<Subject 1>:\n\nfully_preserved -\n\nPreserve the exact presenter identity defined by <Picture 1> and <Picture 2>.\n\nMaintain:\n\n- identical face\n- identical hairstyle\n- identical clothing\n- identical body proportions\n- identical studio environment\n- identical lighting style\n\nOnly allow:\n\n- natural mouth movement\n- natural blinking\n- subtle facial expression changes\n- context-aware presenter gestures\n\n\nCamera:\n\nfully_preserved -\n\nPreserve:\n\n- camera position\n- camera height\n- focal length\n- perspective\n- framing\n- composition\n\nThe camera setup remains identical throughout the clip.\n\nNo:\n\n- camera drift\n- reframing\n- zoom\n- push in\n- pull out\n- pan\n- tilt\n\n\n<Audio 1>:\n\nfully_preserved -\n\nThe spoken audio must be followed exactly.\n\nDo not:\n\n- add extra words\n- remove words\n- modify spoken content\n- generate additional speech\n\n\ndetailed_description:\n\nThe target video is a realistic professional government policy interpretation program.\n\nThe video uses a vertical 9:16 locked-off broadcast composition.\n\n[Shot 1]\n\nA static medium shot captured by a fixed tripod camera.\n\nThe camera position, camera height, focal length, perspective, and framing remain unchanged throughout the entire clip.\n\nThe camera does not move.\n\nNo zoom.\nNo push in.\nNo pull out.\nNo pan.\nNo tilt.\nNo reframing.\n\n<Subject 1> appears in the professional studio environment defined by <Picture 2>.\n\nThe presenter remains at the same distance from the camera throughout the entire shot.\n\nThe presenter maintains the exact composition defined by the reference image.\n\nThe lighting remains consistent with <Picture 2>.\n\nThe presenter maintains direct eye contact with the camera.\n\nThe presenter has a calm, friendly, and trustworthy expression.\n\nThe presenter maintains a professional broadcast posture.\n\n\nThe presenter uses natural, context-aware hand gestures that match the spoken content.\n\nThe gestures follow the meaning and rhythm of the narration naturally, similar to a professional television presenter.\n\nThe gestures should emphasize important policy points when appropriate.\n\nHand movements are subtle, controlled, and professional.\n\nAvoid exaggerated arm movements or dramatic gestures.\n\nThe presenter remains within the original camera framing.\n\n\nThe presenter speaks naturally.\n\nThe mouth movement, jaw movement, and facial expression timing must accurately follow the phoneme sequence of <Audio 1>.\n\nThe presenter does not add any extra speech or sound.\n\nDo not summarize, paraphrase, or modify the spoken content.\n\n\nFor continuation clips:\n\nContinue the exact previous frame state.\n\nThe first frame must seamlessly continue from the previous clip ending.\n\nPreserve:\n\n- same facial position\n- same body position\n- same camera framing\n- same camera perspective\n- same clothing\n- same lighting\n- same studio environment\n\nThe camera remains locked in the same static shot.\n\nThe presenter continues the natural speaking motion and context-aware gestures from the previous clip.\n\nNo visual reset.\n\nNo scene transition.\n\n\noverall_soundscape:\n\n<Audio 1> is the protected narration audio.\n\nThe narration is clear and isolated.\n\nNo additional voice.\n\nNo environmental speech.\n\n\nnon_diegetic_music:\n\nNo background music.\n\n<Audio 1> is the only audio source.\n\n<Audio 1> drives:\n\n- lip synchronization\n- mouth movement\n- facial expression timing\n- speaking rhythm",
+        "width": 960,
+        "height": 544,
+        "length": 362,
+        "ref_image_size": "match"
+      },
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 2531,
+      "type": "MiniMaxH3StreamCheckpointDigitalHumanToVHS",
+      "pos": [
+        -721.8517388237847,
+        -1530
+      ],
+      "size": [
+        610,
+        1552
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video_vae",
+          "type": "VAE",
+          "link": 1511
+        },
+        {
+          "name": "master_audio",
+          "type": "AUDIO",
+          "link": 1512
+        },
+        {
+          "name": "clip_count",
+          "type": "INT",
+          "widget": {
+            "name": "clip_count"
+          },
+          "link": 1614
+        },
+        {
+          "name": "context_frames",
+          "type": "INT",
+          "widget": {
+            "name": "context_frames"
+          },
+          "link": 1615
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "title": "DIGITAL HUMAN PROJECT — auto timeline → checkpoints → assemble",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3StreamCheckpointDigitalHumanToVHS",
+        "aux_id": "caitongbo/ComfyUI-MiniMaxH3-LongVideo-DigitalHuman",
+        "ver": "checkpoint-managed"
+      },
+      "widgets_values": [
+        "h3_digital_human/checkpoints/clip",
+        4,
+        39,
+        0,
+        "disk-backed",
+        0,
+        1,
+        1500,
+        "video/minimax_h3_digital_human",
+        "yuv420p",
+        19,
+        false,
+        true,
+        true,
+        null,
+        null,
+        null
+      ],
+      "widgets_values_named": {
+        "checkpoint_prefix": "h3_digital_human/checkpoints/clip",
+        "clip_count": 4,
+        "context_frames": 39,
+        "video_overlap_frames": 0,
+        "decode_buffer": "disk-backed",
+        "max_decode_ram_gb": 0,
+        "generation_retries": 1,
+        "cleanup_delay_ms": 1500,
+        "filename_prefix": "video/minimax_h3_digital_human",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": false,
+        "trim_to_audio": true,
+        "save_output": true,
+        "Run/resume checkpoints → assemble": null,
+        "Open Digital Human Project…": null,
+        "Checkpoint status: idle": null
+      },
+      "color": "#29324a",
+      "bgcolor": "#1b2235"
+    },
+    {
+      "id": 1756,
+      "type": "ModelAttentionBackend",
+      "pos": [
+        -2120,
+        175
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 821
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1622
+          ]
+        }
+      ],
+      "title": "BASE ATTENTION BACKEND",
+      "properties": {
+        "Node name for S&R": "ModelAttentionBackend",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "comfy kitchen attention"
+      ],
+      "widgets_values_named": {
+        "attention": "comfy kitchen attention"
+      }
+    },
+    {
+      "id": 5,
+      "type": "MiniMaxH3SigmaShift",
+      "pos": [
+        -1400,
+        130
+      ],
+      "size": [
+        308.3677734375,
+        150
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1622
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            13,
+            1516
+          ]
+        }
+      ],
+      "title": "BASE SIGMA SHIFT — video 12 / audio 3",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3SigmaShift",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        12,
+        3
+      ],
+      "widgets_values_named": {
+        "shift_video": 12,
+        "shift_audio": 3
+      }
+    },
+    {
+      "id": 970,
+      "type": "PrimitiveInt",
+      "pos": [
+        -1000,
+        330
+      ],
+      "size": [
+        299.28200000000015,
+        82.88736041259767
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            256
+          ]
+        }
+      ],
+      "title": "BASE STEPS — Turbo 8",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        20,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "value": 20,
+        "fixed": "fixed"
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 910,
+      "type": "LoadImage",
+      "pos": [
+        -1500,
+        -1180
+      ],
+      "size": [
+        500,
+        360
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            185,
+            1619
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "Master Reference — one upload → Picture 1 + Picture 2",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "presenter_reference.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "presenter_reference.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 940,
+      "type": "LoadAudio",
+      "pos": [
+        -1500,
+        -1450
+      ],
+      "size": [
+        500,
+        150
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            1247,
+            1512,
+            1609
+          ]
+        }
+      ],
+      "title": "Master Audio — select narration",
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "h3_fixed_fps": true
+      },
+      "widgets_values": [
+        "demo_narration.mp3",
+        null,
+        null
+      ],
+      "widgets_values_named": {
+        "audio": "demo_narration.mp3",
+        "upload": null
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    }
+  ],
+  "links": [
+    [
+      1,
+      101,
+      0,
+      102,
+      0,
+      "FLOAT"
+    ],
+    [
+      13,
+      5,
+      0,
+      123,
+      0,
+      "MODEL"
+    ],
+    [
+      24,
+      2,
+      0,
+      200,
+      0,
+      "CLIP"
+    ],
+    [
+      25,
+      3,
+      0,
+      200,
+      1,
+      "VAE"
+    ],
+    [
+      26,
+      100,
+      0,
+      200,
+      9,
+      "INT"
+    ],
+    [
+      27,
+      100,
+      1,
+      200,
+      10,
+      "INT"
+    ],
+    [
+      28,
+      102,
+      1,
+      200,
+      11,
+      "INT"
+    ],
+    [
+      36,
+      210,
+      0,
+      214,
+      0,
+      "NOISE"
+    ],
+    [
+      37,
+      211,
+      0,
+      214,
+      1,
+      "GUIDER"
+    ],
+    [
+      38,
+      973,
+      0,
+      214,
+      2,
+      "SAMPLER"
+    ],
+    [
+      40,
+      123,
+      0,
+      214,
+      3,
+      "SIGMAS"
+    ],
+    [
+      184,
+      2510,
+      0,
+      200,
+      2,
+      "VAE"
+    ],
+    [
+      185,
+      910,
+      0,
+      200,
+      3,
+      "IMAGE"
+    ],
+    [
+      256,
+      970,
+      0,
+      123,
+      1,
+      "INT"
+    ],
+    [
+      646,
+      1733,
+      0,
+      1753,
+      0,
+      "INT"
+    ],
+    [
+      647,
+      102,
+      1,
+      1753,
+      1,
+      "INT"
+    ],
+    [
+      655,
+      200,
+      0,
+      211,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      656,
+      201,
+      0,
+      214,
+      4,
+      "LATENT"
+    ],
+    [
+      821,
+      1,
+      0,
+      1756,
+      0,
+      "MODEL"
+    ],
+    [
+      1108,
+      3,
+      0,
+      2294,
+      1,
+      "VAE"
+    ],
+    [
+      1111,
+      2294,
+      0,
+      2296,
+      0,
+      "IMAGE"
+    ],
+    [
+      1245,
+      200,
+      1,
+      201,
+      0,
+      "LATENT"
+    ],
+    [
+      1246,
+      2510,
+      0,
+      201,
+      1,
+      "VAE"
+    ],
+    [
+      1247,
+      940,
+      0,
+      201,
+      2,
+      "AUDIO"
+    ],
+    [
+      1250,
+      1753,
+      1,
+      201,
+      4,
+      "INT"
+    ],
+    [
+      1360,
+      2512,
+      0,
+      2294,
+      0,
+      "LATENT"
+    ],
+    [
+      1490,
+      4,
+      0,
+      2510,
+      0,
+      "VAE"
+    ],
+    [
+      1492,
+      214,
+      0,
+      2512,
+      0,
+      "LATENT"
+    ],
+    [
+      1511,
+      3,
+      0,
+      2531,
+      0,
+      "VAE"
+    ],
+    [
+      1512,
+      940,
+      0,
+      2531,
+      1,
+      "AUDIO"
+    ],
+    [
+      1516,
+      5,
+      0,
+      211,
+      0,
+      "MODEL"
+    ],
+    [
+      1597,
+      2551,
+      0,
+      210,
+      0,
+      "INT"
+    ],
+    [
+      1609,
+      940,
+      0,
+      2600,
+      0,
+      "AUDIO"
+    ],
+    [
+      1610,
+      102,
+      1,
+      2600,
+      1,
+      "INT"
+    ],
+    [
+      1611,
+      1753,
+      1,
+      2600,
+      2,
+      "INT"
+    ],
+    [
+      1612,
+      2601,
+      0,
+      201,
+      3,
+      "INT"
+    ],
+    [
+      1613,
+      2601,
+      0,
+      2512,
+      1,
+      "INT"
+    ],
+    [
+      1614,
+      2600,
+      0,
+      2531,
+      2,
+      "INT"
+    ],
+    [
+      1615,
+      1753,
+      1,
+      2531,
+      3,
+      "INT"
+    ],
+    [
+      1617,
+      2601,
+      0,
+      2600,
+      3,
+      "INT"
+    ],
+    [
+      1618,
+      2600,
+      1,
+      2296,
+      1,
+      "AUDIO"
+    ],
+    [
+      1619,
+      910,
+      0,
+      200,
+      4,
+      "IMAGE"
+    ],
+    [
+      1622,
+      1756,
+      0,
+      5,
+      0,
+      "MODEL"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "PROJECT CONTROL — plan → generate → assemble",
+      "bounding": [
+        -800,
+        -1570,
+        800,
+        1400
+      ],
+      "color": "#2f6b3f",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "ONE REUSABLE CLIP PIPELINE — automatic per-clip execution",
+      "bounding": [
+        200,
+        -850,
+        3000,
+        950
+      ],
+      "color": "#365574",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "CURRENT CLIP PREVIEW",
+      "bounding": [
+        3250,
+        -820,
+        900,
+        650
+      ],
+      "color": "#654f31",
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "MASTER INPUTS — audio + one image → dual R2V anchor",
+      "bounding": [
+        -1570,
+        -1570,
+        650,
+        850
+      ],
+      "color": "#4d5d36",
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "START HERE — quick guide + official Ref2VA prompt format",
+      "bounding": [
+        -2600,
+        -1570,
+        1000,
+        1320
+      ],
+      "color": "#5b4635",
+      "flags": {}
+    },
+    {
+      "id": 6,
+      "title": "ADVANCED MODEL + SAMPLING SETTINGS — normally unchanged",
+      "bounding": [
+        -2600,
+        50,
+        2600,
+        950
+      ],
+      "color": "#4b4668",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5950413223140643,
+      "offset": [
+        3193.369990543345,
+        1396.872694784404
+      ]
+    },
+    "frontendVersion": "1.51.9",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "ue_links": [],
+    "links_added_by_ue": []
+  },
+  "version": 0.4
+}
